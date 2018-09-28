@@ -1,0 +1,3 @@
+rootProject.name = 'rcamp'
+
+include ':app'
