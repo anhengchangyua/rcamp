@@ -1,40 +1,56 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu'
-});
-
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+import { StackNavigator, TabNavigator } from 'react-navigation';
+import MainContainer from '../containers/MainContainer';
+import CoverContainer from '../containers/CoverContainer';
+import AboutContainer from '../containers/AboutContainer';
+const TabContainer = TabNavigator(
+  {
+    Main: { screen: MainContainer },
+    Cover: { screen: CoverContainer },
+    About: { screen: AboutContainer }
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
+  {
+    lazy: true,
+    tabBarPosition: 'bottom',
+    tabBarOptions: {
+      activeTintColor: '#3e9ce9',
+      inactiveTintColor: '#999999',
+      showIcon: true,
+      style: {
+        backgroundColor: '#fff'
+      },
+      indicatorStyle: {
+        opacity: 0
+      },
+      tabStyle: {
+        padding: 0
+      }
+    }
   }
-});
+);
+
+const App = StackNavigator(
+  {
+    Home: {
+      screen: TabContainer,
+      navigationOptions: {
+        headerLeft: null
+      }
+    }
+  },
+  {
+    headerMode: 'screen',
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#3e9ce9'
+      },
+      headerTitleStyle: {
+        color: '#fff',
+        fontSize: 20
+      },
+      headerTintColor: '#fff'
+    }
+  }
+);
+
+export default App;
