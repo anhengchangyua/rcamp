@@ -1,0 +1,1 @@
+export const REQUEST_HOME_LIST = 'REQUEST_HOME_LIST';

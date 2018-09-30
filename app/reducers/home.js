@@ -6,9 +6,9 @@ const initialState = {
   noMore: false,
   articleList: {}
 };
-export default function read(state = initialState, action) {
+export default function home(state = initialState, action) {
   switch (action.type) {
-    case types.FETCH_ARTICLE_LIST:
+    case types.REQUEST_HOME_LIST:
 
     case types.RECEIVE_ARTICLE_LIST:
 
