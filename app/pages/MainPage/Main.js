@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import Swiper from 'react-native-swiper';
+import React, { Component } from 'react'
+import Swiper from 'react-native-swiper'
 import {
   Text,
   Image,
-  TouchableWithoutFeedback,
-  Alert,
+  Button,
   StyleSheet,
-  ListView,
+  FlatList,
   View,
   Dimensions
-} from 'react-native';
+} from 'react-native'
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
-  wrapper: {},
+  wrapper: { flex: 1 },
   slide1: {
     flex: 1,
     justifyContent: 'center',
@@ -43,16 +42,62 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold'
+  },
+  txt: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: 'white',
+    fontSize: 30
   }
-});
+})
+
+var ITEM_HEIGHT = 100
 
 class Main extends Component {
+  _flatList
+
+  _renderItem = item => {
+    var txt = '第' + item.index + '个' + ' title=' + item.item.title
+    var bgColor = item.index % 2 == 0 ? 'red' : 'blue'
+    return (
+      <Text
+        style={[
+          { flex: 1, height: ITEM_HEIGHT, backgroundColor: bgColor },
+          styles.txt
+        ]}
+      >
+        {txt}
+      </Text>
+    )
+  }
+
+  _header = () => {
+    return (
+      <Text style={[styles.txt, { backgroundColor: 'black' }]}>这是头部</Text>
+    )
+  }
+
+  _footer = () => {
+    return (
+      <Text style={[styles.txt, { backgroundColor: 'black' }]}>这是尾部</Text>
+    )
+  }
+
+  _separator = () => {
+    return <View style={{ height: 2, backgroundColor: 'yellow' }} />
+  }
+
   render() {
+    var data = []
+    for (var i = 0; i < 100; i++) {
+      data.push({ key: i, title: i + '' })
+    }
+
     return (
       <View
         style={{
           width: width,
-          height: 160,
+          flex: 1,
           backgroundColor: '#fff'
         }}
       >
@@ -146,9 +191,23 @@ class Main extends Component {
             />
           </View>
         </Swiper>
+
+        <FlatList
+          style={{
+            width: width,
+            flex: 1,
+            backgroundColor: '#fff'
+          }}
+          ref={flatList => (this._flatList = flatList)}
+          ListHeaderComponent={this._header}
+          ListFooterComponent={this._footer}
+          ItemSeparatorComponent={this._separator}
+          renderItem={this._renderItem}
+          data={data}
+        />
       </View>
-    );
+    )
   }
 }
 
-export default Main;
+export default Main
