@@ -3,7 +3,7 @@
  * @Date: 2018-10-08 11:03:10 
  * @Description:  关于我的page页面
  * @Last Modified by: zhangwy
- * @Last Modified time: 2018-10-08 12:15:36
+ * @Last Modified time: 2018-10-08 12:17:32
  */
 import React, { PureComponent } from 'react';
 import { Tile, List, ListItem, Icon } from 'react-native-elements';
@@ -22,7 +22,7 @@ class AboutMe extends PureComponent {
         id: 1,
         title: '喜欢的文章',
         icon: 'heart',
-        color: '#f50'
+        color: '#f57'
       },
       {
         id: 2,

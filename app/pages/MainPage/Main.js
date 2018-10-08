@@ -82,7 +82,7 @@ class Main extends Component {
         dataSource: this.responseData
       });
       this.isLoreMore = false;
-    }, 2000);
+    }, 100);
   };
 
   isLoreMore = false;
