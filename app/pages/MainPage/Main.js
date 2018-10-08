@@ -1,19 +1,17 @@
-import React, { Component } from 'react'
-import Swiper from 'react-native-swiper'
+import React, { Component } from 'react';
+import Swiper from 'react-native-swiper';
 import {
   Text,
   Image,
-  Button,
   StyleSheet,
   FlatList,
   View,
   Dimensions,
-  RefreshControl,
-  TouchableOpacity
-} from 'react-native'
-import { Card, Icon } from 'react-native-elements'
+  RefreshControl
+} from 'react-native';
+import ListItem from '../../components/ListItem';
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -46,37 +44,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44
   }
-})
+});
 
 class Main extends Component {
   //构造函数
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       refreshing: false,
       isLoreMoreing: 'LoreMoreing',
       dataSource: []
-    }
-    this.responseData = []
+    };
+    this.responseData = [];
   }
 
   componentDidMount() {
-    this.Refresh()
-    //模拟请求后台返回的数据
-  }
-
-  /**
-   * item点击事件
-   */
-  _onItemClick(item) {
-    console.log('page' + item)
+    this.Refresh();
   }
 
   Refresh = () => {
     this.setState({
       refreshing: true
-    })
+    });
 
     setTimeout(() => {
       //默认选中第二个
@@ -86,23 +76,23 @@ class Main extends Component {
         { id: 102 },
         { id: 103 },
         { id: 104 }
-      ]
+      ];
       this.setState({
         refreshing: false,
         dataSource: this.responseData
-      })
-      this.isLoreMore = false
-    }, 2000)
-  }
+      });
+      this.isLoreMore = false;
+    }, 2000);
+  };
 
-  isLoreMore = false
+  isLoreMore = false;
   LoreMore = () => {
     if (this.isLoreMore == false) {
       this.setState({
         isLoreMoreing: 'LoreMoreing'
-      })
+      });
 
-      this.isLoreMore = true
+      this.isLoreMore = true;
       // this.responseData = this.responseData.concat({ id: '加载的新数据' })
       // setTimeout(() => {
       //   this.setState({
@@ -113,10 +103,10 @@ class Main extends Component {
       setTimeout(() => {
         this.setState({
           isLoreMoreing: 'LoreMoreEmpty'
-        })
-      }, 500)
+        });
+      }, 500);
     }
-  }
+  };
 
   render() {
     return (
@@ -126,11 +116,9 @@ class Main extends Component {
             showsVerticalScrollIndicator={false} //是否显示垂直滚动条
             showsHorizontalScrollIndicator={false} //是否显示水平滚动条
             numColumns={1} //每行显示1个
-            ref={flatList => (this._flatList = flatList)}
             ListHeaderComponent={this.renderHeader} //头部
             ListFooterComponent={this.renderFooter} //尾巴
             renderItem={this.renderRow} //每行显示一项
-            ItemSeparatorComponent={this.renderSeparator} //每行底部---一般写下划线
             enableEmptySections={true} //数据可以为空
             keyExtractor={(item, index) => (item.key = index)}
             onEndReachedThreshold={0.2} //执行上啦的时候10%执行
@@ -146,57 +134,12 @@ class Main extends Component {
           />
         </View>
       </View>
-    )
+    );
   }
 
   renderRow = item => {
-    let rowData = item.item
-    let index = rowData.key
-    return (
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={() => this._onItemClick(item)}
-      >
-        <Card style={{ height }}>
-          <View style={{ flex: 1 }}>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text>作者: </Text>
-              <Text style={{ color: '#83c9f8' }}>ONGHANGhAI</Text>
-              <Text style={{ position: 'absolute', right: 0 }}>七分钟前</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
-                设置padding相同于同时...
-              </Text>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between'
-              }}
-            >
-              <Text style={{ color: '#458abb', fontSize: 16 }}>创意会</Text>
-              <Icon
-                name="heart"
-                type="font-awesome"
-                color="#f50"
-                style={{
-                  width: 10,
-                  height: 10
-                }}
-                onPress={() => console.log('hello')}
-              />
-            </View>
-          </View>
-        </Card>
-      </TouchableOpacity>
-    )
-  }
-
-  renderSeparator = () => {
-    return <View style={{ height: 0, backgroundColor: 'rgb(200,200,200)' }} />
-  }
+    return <ListItem item={item} />;
+  };
 
   renderHeader = () => {
     return (
@@ -237,8 +180,8 @@ class Main extends Component {
           </View>
         </Swiper>
       </View>
-    )
-  }
+    );
+  };
 
   renderFooter = () => {
     if (
@@ -256,7 +199,7 @@ class Main extends Component {
         >
           <Text>{'正在加载....'}</Text>
         </View>
-      )
+      );
     } else if (this.state.isLoreMoreing == 'LoreMoreEmpty') {
       return (
         <View
@@ -270,11 +213,11 @@ class Main extends Component {
         >
           <Text>{'暂无更多'}</Text>
         </View>
-      )
+      );
     } else {
-      return null
+      return null;
     }
-  }
+  };
 }
 
-export default Main
+export default Main;
