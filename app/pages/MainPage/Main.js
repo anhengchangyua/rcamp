@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Swiper from 'react-native-swiper';
+import React, { Component } from 'react'
+import Swiper from 'react-native-swiper'
 import {
   Text,
   Image,
@@ -8,11 +8,11 @@ import {
   View,
   Dimensions,
   RefreshControl
-} from 'react-native';
+} from 'react-native'
 
-import ListItem from '../../components/ListItem';
+import ListItem from '../../components/ListItem'
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -45,31 +45,31 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44
   }
-});
+})
 
 class Main extends Component {
   //构造函数
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       refreshing: false,
       isLoreMoreing: 'LoreMoreing',
       dataSource: []
-    };
-    this.responseData = [];
+    }
+    this.responseData = []
   }
 
   componentDidMount() {
-    this.Refresh();
-    console.log(this.props.homeActions);
-    this.props.homeActions.requestHomeList(false, false, false, false, 1);
+    this.Refresh()
+    const { homeActions } = this.props
+    homeActions.requestHomeList(false, true, 1)
   }
 
   Refresh = () => {
     this.setState({
       refreshing: true
-    });
+    })
 
     setTimeout(() => {
       //默认选中第二个
@@ -79,23 +79,23 @@ class Main extends Component {
         { id: 102 },
         { id: 103 },
         { id: 104 }
-      ];
+      ]
       this.setState({
         refreshing: false,
         dataSource: this.responseData
-      });
-      this.isLoreMore = false;
-    }, 100);
-  };
+      })
+      this.isLoreMore = false
+    }, 100)
+  }
 
-  isLoreMore = false;
+  isLoreMore = false
   LoreMore = () => {
     if (this.isLoreMore == false) {
       this.setState({
         isLoreMoreing: 'LoreMoreing'
-      });
+      })
 
-      this.isLoreMore = true;
+      this.isLoreMore = true
       // this.responseData = this.responseData.concat({ id: '加载的新数据' })
       // setTimeout(() => {
       //   this.setState({
@@ -106,10 +106,10 @@ class Main extends Component {
       setTimeout(() => {
         this.setState({
           isLoreMoreing: 'LoreMoreEmpty'
-        });
-      }, 500);
+        })
+      }, 500)
     }
-  };
+  }
 
   render() {
     return (
@@ -137,12 +137,12 @@ class Main extends Component {
           />
         </View>
       </View>
-    );
+    )
   }
 
   renderRow = item => {
-    return <ListItem item={item} />;
-  };
+    return <ListItem item={item} />
+  }
 
   renderHeader = () => {
     return (
@@ -183,8 +183,8 @@ class Main extends Component {
           </View>
         </Swiper>
       </View>
-    );
-  };
+    )
+  }
 
   renderFooter = () => {
     if (
@@ -202,7 +202,7 @@ class Main extends Component {
         >
           <Text>{'正在加载....'}</Text>
         </View>
-      );
+      )
     } else if (this.state.isLoreMoreing == 'LoreMoreEmpty') {
       return (
         <View
@@ -216,11 +216,11 @@ class Main extends Component {
         >
           <Text>{'暂无更多'}</Text>
         </View>
-      );
+      )
     } else {
-      return null;
+      return null
     }
-  };
+  }
 }
 
-export default Main;
+export default Main

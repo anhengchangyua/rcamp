@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { StackNavigator, TabNavigator } from 'react-navigation';
-import MainContainer from '../containers/MainContainer';
-import CoverContainer from '../containers/CoverContainer';
-import AboutContainer from '../containers/AboutContainer';
+import React, { Component } from 'react'
+import { StackNavigator, TabNavigator } from 'react-navigation'
+import MainContainer from './MainContainer'
+import CoverContainer from './CoverContainer'
+import AboutContainer from './AboutContainer'
 const TabContainer = TabNavigator(
   {
     Main: { screen: MainContainer },
@@ -27,7 +27,7 @@ const TabContainer = TabNavigator(
       }
     }
   }
-);
+)
 
 const App = StackNavigator(
   {
@@ -51,6 +51,6 @@ const App = StackNavigator(
       headerTintColor: '#fff'
     }
   }
-);
+)
 
-export default App;
+export default App
