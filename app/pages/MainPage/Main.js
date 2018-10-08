@@ -11,9 +11,9 @@ import {
   RefreshControl,
   TouchableOpacity
 } from 'react-native'
-import { Card } from 'react-native-elements'
+import { Card, Icon } from 'react-native-elements'
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -64,6 +64,13 @@ class Main extends Component {
   componentDidMount() {
     this.Refresh()
     //模拟请求后台返回的数据
+  }
+
+  /**
+   * item点击事件
+   */
+  _onItemClick(item) {
+    console.log('page' + item)
   }
 
   Refresh = () => {
@@ -151,7 +158,37 @@ class Main extends Component {
         onPress={() => this._onItemClick(item)}
       >
         <Card style={{ height }}>
-          <Text>{rowData.id}</Text>
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <Text>作者: </Text>
+              <Text style={{ color: '#83c9f8' }}>ONGHANGhAI</Text>
+              <Text style={{ position: 'absolute', right: 0 }}>七分钟前</Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
+                设置padding相同于同时...
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}
+            >
+              <Text style={{ color: '#458abb', fontSize: 16 }}>创意会</Text>
+              <Icon
+                name="heart"
+                type="font-awesome"
+                color="#f50"
+                style={{
+                  width: 10,
+                  height: 10
+                }}
+                onPress={() => console.log('hello')}
+              />
+            </View>
+          </View>
         </Card>
       </TouchableOpacity>
     )
