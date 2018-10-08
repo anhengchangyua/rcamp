@@ -1,5 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import * as homeCreators from '../actions/home';
+import { connect } from 'react-redux';
 import {
   Text,
   Image,
@@ -10,6 +12,7 @@ import {
   View,
   Dimensions
 } from 'react-native';
+import { bindActionCreators } from 'redux';
 import Main from '../pages/MainPage/Main';
 
 class MainContainer extends React.Component {
@@ -38,8 +41,22 @@ class MainContainer extends React.Component {
     Alert.alert('onPressButton');
   };
   render() {
-    return <Main />;
+    return <Main {...this.props} />;
   }
 }
+const mapStateToProps = state => {
+  const { home } = state;
+  return { home };
+};
 
-export default MainContainer;
+const mapDispatchToProps = dispatch => {
+  const homeActions = bindActionCreators(homeCreators, dispatch);
+  return {
+    homeActions
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainContainer);

@@ -25,3 +25,7 @@ export function requestHomeList(
     page
   };
 }
+
+export function receiveHomeList(homeList, typeId) {
+  return { type: types.RECEIVE_HOME_LIST, homeList, typeId };
+}

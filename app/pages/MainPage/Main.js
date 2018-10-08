@@ -9,6 +9,7 @@ import {
   Dimensions,
   RefreshControl
 } from 'react-native';
+
 import ListItem from '../../components/ListItem';
 
 const { width } = Dimensions.get('window');
@@ -61,6 +62,8 @@ class Main extends Component {
 
   componentDidMount() {
     this.Refresh();
+    console.log(this.props.homeActions);
+    this.props.homeActions.requestHomeList(false, false, false, false, 1);
   }
 
   Refresh = () => {
