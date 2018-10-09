@@ -1,6 +1,6 @@
 import * as types from '../constants/ActionTypes';
 
-export function fetchHomeList(isRefreshing, loading, isLoadMore = false) {
+export function fetchHomeList(isRefreshing, loading, isLoadMore) {
   return {
     type: types.FETCH_HOME_LIST,
     isRefreshing,
@@ -9,24 +9,16 @@ export function fetchHomeList(isRefreshing, loading, isLoadMore = false) {
   };
 }
 
-export function requestHomeList(
-  isRefreshing,
-  loading,
-  typeId,
-  isLoadMore,
-  page = 1
-) {
-  console.log('第一步');
+export function requestHomeList(isRefreshing, loading, isLoadMore, page) {
   return {
     type: types.REQUEST_HOME_LIST,
     isRefreshing,
     loading,
     isLoadMore,
-    typeId,
     page
   };
 }
 
-export function receiveHomeList(homeList, typeId) {
-  return { type: types.RECEIVE_HOME_LIST, homeList, typeId };
+export function receiveHomeList(homeList) {
+  return { type: types.RECEIVE_HOME_LIST, homeList };
 }

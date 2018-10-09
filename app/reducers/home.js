@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
   isLoadMore: false,
   noMore: false,
-  homeList: {}
+  homeList: []
 };
 export default function home(state = initialState, action) {
   switch (action.type) {
@@ -16,7 +16,14 @@ export default function home(state = initialState, action) {
       });
 
     case types.RECEIVE_HOME_LIST:
-      return { ...state };
+      return Object.assign({}, state, {
+        isRefreshing: false,
+        loading: false,
+        isLoadMore: false,
+        noMore: action.homeList.length === 0,
+        homeList: action.homeList
+      });
+
     default:
       return state;
   }

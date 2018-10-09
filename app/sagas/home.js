@@ -2,43 +2,35 @@ import { take, put, fork, call } from 'redux-saga/effects';
 import * as types from '../constants/ActionTypes';
 import { fetchHomeList, receiveHomeList } from '../actions/home';
 import RequestUtil from '../utils/RequestUtils';
+import ToastUtil from '../utils/ToastUtil';
 import { HOME_LIST } from '../constants/Urls';
-export function* requestHomeList(
-  isRefreshing,
-  loading,
-  typeId,
-  isLoadMore,
-  page
-) {
+export function* requestHomeList(isRefreshing, loading, isLoadMore, page) {
   try {
-    console.log('第三步');
     yield put(fetchHomeList(isRefreshing, loading, isLoadMore)); //  start request tip
-    const homeLists = yield call(RequestUtil.request, `${HOME_LIST}`, 'get');
-    yield put(receiveHomeList({ homeLists }, 1));
-    // const errorMessage = articleList.showapi_res_error;
-    // if (errorMessage && errorMessage !== '') {
-    //   yield ToastUtil.showShort(errorMessage);
-    // }
+    console.log('ddddddddddddd');
+    const homeLists = yield call(
+      RequestUtil.request,
+      `${HOME_LIST}/${page}/json`,
+      'get'
+    );
+
+    yield put(receiveHomeList(data));
+
+    const errorMsg = articleList.errorMsg;
+    if (errorMsg && errorMsg !== '') {
+      yield ToastUtil.showShort(errorMsg);
+    }
   } catch (error) {
-    // yield put(receiveArticleList([], typeId));
+    yield put(receiveHomeList([]));
     ToastUtil.showShort('网络发生错误，请重试');
   }
 }
 
 export function* watchRequestHomeList() {
   while (true) {
-    console.log('第二步');
-    const { isRefreshing, loading, typeId, isLoadMore, page } = yield take(
+    const { isRefreshing, loading, isLoadMore, page } = yield take(
       types.REQUEST_HOME_LIST
     );
-
-    yield fork(
-      requestHomeList,
-      isRefreshing,
-      loading,
-      typeId,
-      isLoadMore,
-      page
-    );
+    yield fork(requestHomeList, isRefreshing, loading, isLoadMore, page);
   }
 }

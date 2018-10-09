@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     height: 44
   }
 });
-
+let pages = 0;
 class Main extends Component {
   //构造函数
   constructor(props) {
@@ -63,8 +63,8 @@ class Main extends Component {
   componentDidMount() {
     this.Refresh();
     const { homeActions } = this.props;
-    console.log('在这里触发action');
-    homeActions.requestHomeList(false, true, 1);
+    homeActions.requestHomeList(false, true, false, pages);
+    pages++;
   }
 
   Refresh = () => {
