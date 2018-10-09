@@ -1,16 +1,23 @@
-import * as types from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes';
 const initialState = {
   isRefreshing: false,
   loading: false,
   isLoadMore: false,
   noMore: false,
-  articleList: {}
-}
+  homeList: {}
+};
 export default function home(state = initialState, action) {
   switch (action.type) {
-    case types.RECEIVE_ARTICLE_LIST:
-      return state
+    case types.FETCH_HOME_LIST:
+      return Object.assign({}, state, {
+        isRefreshing: action.isRefreshing,
+        loading: action.loading,
+        isLoadMore: action.isLoadMore
+      });
+
+    case types.RECEIVE_HOME_LIST:
+      return { ...state };
     default:
-      return state
+      return state;
   }
 }

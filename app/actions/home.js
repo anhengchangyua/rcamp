@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes';
 
 export function fetchHomeList(isRefreshing, loading, isLoadMore = false) {
   return {
@@ -6,7 +6,7 @@ export function fetchHomeList(isRefreshing, loading, isLoadMore = false) {
     isRefreshing,
     loading,
     isLoadMore
-  }
+  };
 }
 
 export function requestHomeList(
@@ -16,6 +16,7 @@ export function requestHomeList(
   isLoadMore,
   page = 1
 ) {
+  console.log('第一步');
   return {
     type: types.REQUEST_HOME_LIST,
     isRefreshing,
@@ -23,9 +24,9 @@ export function requestHomeList(
     isLoadMore,
     typeId,
     page
-  }
+  };
 }
 
 export function receiveHomeList(homeList, typeId) {
-  return { type: types.RECEIVE_HOME_LIST, homeList, typeId }
+  return { type: types.RECEIVE_HOME_LIST, homeList, typeId };
 }
