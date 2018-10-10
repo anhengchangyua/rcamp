@@ -14,9 +14,9 @@ export function* requestHomeList(isRefreshing, loading, isLoadMore, page) {
       'get'
     );
 
-    yield put(receiveHomeList(data));
+    yield put(receiveHomeList(homeLists.data.datas));
+    const errorMsg = homeLists.errorMsg;
 
-    const errorMsg = articleList.errorMsg;
     if (errorMsg && errorMsg !== '') {
       yield ToastUtil.showShort(errorMsg);
     }

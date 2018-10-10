@@ -61,32 +61,24 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    this.Refresh();
     const { homeActions } = this.props;
     homeActions.requestHomeList(false, true, false, pages);
     pages++;
   }
+
+  // componentWillUpdate() {
+  //   const { homeList } = this.props.home;
+  //   this.setState({ refreshing: false, dataSource: homeList });
+  // }
 
   Refresh = () => {
     this.setState({
       refreshing: true
     });
 
-    setTimeout(() => {
-      //默认选中第二个
-      this.responseData = [
-        { id: 100 },
-        { id: 101 },
-        { id: 102 },
-        { id: 103 },
-        { id: 104 }
-      ];
-      this.setState({
-        refreshing: false,
-        dataSource: this.responseData
-      });
-      this.isLoreMore = false;
-    }, 100);
+    const { homeActions } = this.props;
+    homeActions.requestHomeList(false, true, false, 0);
+    this.setState({ refreshing: false, dataSource: this.props.home });
   };
 
   isLoreMore = false;
@@ -153,7 +145,11 @@ class Main extends Component {
           height: 160
         }}
       >
-        <Swiper style={styles.wrapper} horizontal={true} autoplay={true}>
+        <Swiper
+          style={styles.wrapper}
+          horizontal={true}
+          autoplay={!__DEV__ ? true : false}
+        >
           <View style={styles.slide1}>
             <Image
               style={{ width: width, height: 160 }}

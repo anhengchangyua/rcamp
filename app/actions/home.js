@@ -8,7 +8,6 @@ export function fetchHomeList(isRefreshing, loading, isLoadMore) {
     isLoadMore
   };
 }
-
 export function requestHomeList(isRefreshing, loading, isLoadMore, page) {
   return {
     type: types.REQUEST_HOME_LIST,
