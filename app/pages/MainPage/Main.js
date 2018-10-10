@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Swiper from 'react-native-swiper';
+import React, { Component } from 'react'
+import Swiper from 'react-native-swiper'
 import {
   Text,
   Image,
@@ -7,12 +7,13 @@ import {
   FlatList,
   View,
   Dimensions,
-  RefreshControl
-} from 'react-native';
+  RefreshControl,
+  DeviceEventEmitter
+} from 'react-native'
 
-import ListItem from '../../components/ListItem';
+import ListItem from '../../components/ListItem'
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -45,66 +46,47 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44
   }
-});
-let pages = 0;
+})
+let pages = 0
 class Main extends Component {
   //构造函数
   constructor(props) {
-    super(props);
-
+    super(props)
     this.state = {
       refreshing: false,
-      isLoreMoreing: 'LoreMoreing',
-      dataSource: []
-    };
-    this.responseData = [];
+      isLoreMoreing: 'LoreMoreing'
+    }
   }
 
   componentDidMount() {
-    const { homeActions } = this.props;
-    homeActions.requestHomeList(false, true, false, pages);
-    pages++;
+    this.props.homeActions.requestHomeList(false, true, false, 0)
+    pages++
   }
 
-  componentWillUpdate() {
-    const { homeList } = this.props.home;
-    console.log(homeList);
-    // this.setState({ refreshing: false, dataSource: homeList });
-  }
-
-  Refresh = () => {
+  _Refresh = () => {
     this.setState({
       refreshing: true
-    });
-    this.props.homeActions.requestHomeList(false, true, false, 0);
+    })
+    this.props.homeActions.requestHomeList(false, true, false, 0)
     this.setState({
-      refreshing: false,
-      dataSource: this.props.home.homeList
-    });
-  };
+      refreshing: false
+    })
+  }
 
-  isLoreMore = false;
+  isLoreMore = false
   LoreMore = () => {
     if (this.isLoreMore == false) {
       this.setState({
         isLoreMoreing: 'LoreMoreing'
-      });
-
-      this.isLoreMore = true;
-      // this.responseData = this.responseData.concat({ id: '加载的新数据' })
-      // setTimeout(() => {
-      //   this.setState({
-      //     dataSource: this.responseData
-      //   })
-      // }, 500)
-
+      })
+      this.isLoreMore = true
       setTimeout(() => {
         this.setState({
           isLoreMoreing: 'LoreMoreEmpty'
-        });
-      }, 500);
+        })
+      }, 500)
     }
-  };
+  }
 
   render() {
     return (
@@ -121,23 +103,23 @@ class Main extends Component {
             keyExtractor={(item, index) => (item.key = index)}
             onEndReachedThreshold={0.2} //执行上啦的时候10%执行
             onEndReached={this.LoreMore}
-            data={this.state.dataSource}
+            data={this.props.home.homeList}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
-                onRefresh={this.Refresh}
+                onRefresh={this._Refresh}
                 title="Loading..."
               />
             }
           />
         </View>
       </View>
-    );
+    )
   }
 
   renderRow = item => {
-    return <ListItem item={item} />;
-  };
+    return <ListItem item={item} />
+  }
 
   renderHeader = () => {
     return (
@@ -182,12 +164,12 @@ class Main extends Component {
           </View>
         </Swiper>
       </View>
-    );
-  };
+    )
+  }
 
   renderFooter = () => {
     if (
-      this.state.dataSource.length != 0 &&
+      // this.state.dataSource.length != 0 &&
       this.state.isLoreMoreing == 'LoreMoreing'
     ) {
       return (
@@ -201,7 +183,7 @@ class Main extends Component {
         >
           <Text>{'正在加载....'}</Text>
         </View>
-      );
+      )
     } else if (this.state.isLoreMoreing == 'LoreMoreEmpty') {
       return (
         <View
@@ -215,11 +197,11 @@ class Main extends Component {
         >
           <Text>{'暂无更多'}</Text>
         </View>
-      );
+      )
     } else {
-      return null;
+      return null
     }
-  };
+  }
 }
 
-export default Main;
+export default Main
