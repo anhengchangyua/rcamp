@@ -66,19 +66,21 @@ class Main extends Component {
     pages++;
   }
 
-  // componentWillUpdate() {
-  //   const { homeList } = this.props.home;
-  //   this.setState({ refreshing: false, dataSource: homeList });
-  // }
+  componentWillUpdate() {
+    const { homeList } = this.props.home;
+    console.log(homeList);
+    // this.setState({ refreshing: false, dataSource: homeList });
+  }
 
   Refresh = () => {
     this.setState({
       refreshing: true
     });
-
-    const { homeActions } = this.props;
-    homeActions.requestHomeList(false, true, false, 0);
-    this.setState({ refreshing: false, dataSource: this.props.home });
+    this.props.homeActions.requestHomeList(false, true, false, 0);
+    this.setState({
+      refreshing: false,
+      dataSource: this.props.home.homeList
+    });
   };
 
   isLoreMore = false;
