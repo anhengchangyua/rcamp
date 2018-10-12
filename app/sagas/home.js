@@ -13,15 +13,17 @@ export function* requestHomeList(isRefreshing, loading, isLoadMore, page) {
       `${HOME_LIST}/${page}/json`,
       'get'
     )
-
-    yield put(receiveHomeList(homeLists.data.datas))
+    let isEnd = homeLists.data.curPage > homeLists.data.pageCount
+    yield put(
+      receiveHomeList(isEnd, homeLists.data.curPage, homeLists.data.datas)
+    )
     const errorMsg = homeLists.errorMsg
 
     if (errorMsg && errorMsg !== '') {
       yield ToastUtil.showShort(errorMsg)
     }
   } catch (error) {
-    yield put(receiveHomeList([]))
+    yield put(receiveHomeList(false, null, []))
     ToastUtil.showShort('网络发生错误，请重试')
   }
 }

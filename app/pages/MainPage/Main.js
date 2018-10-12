@@ -52,51 +52,32 @@ class Main extends Component {
   //构造函数
   constructor(props) {
     super(props)
-    this.state = {
-      refreshing: false,
-      isLoreMoreing: 'LoreMoreing',
-      lists: false,
-      dataSource: []
-    }
-    this.responseData = []
+    this.state = { page: 0 }
   }
 
   componentDidMount() {
-    this.setState({
-      lists: true
-    })
     this._Refresh()
   }
 
   _Refresh = () => {
-    this.setState({
-      refreshing: true
-    })
-    this.props.homeActions.requestHomeList(false, true, false, 0)
-    this.responseData = this.props.home.homeList
-    this.setState({
-      refreshing: false,
-      dataSource: this.responseData
-    })
-    this.isLoreMore = false
+    this.setState({ page: 0 })
+    this.props.homeActions.requestHomeList(true, false, false, 0)
   }
 
-  isLoreMore = false
-  LoreMore = () => {
-    if (this.isLoreMore == false) {
-      this.setState({
-        isLoreMoreing: 'LoreMoreing'
-      })
-      this.isLoreMore = true
-      setTimeout(() => {
-        this.setState({
-          isLoreMoreing: 'LoreMoreEmpty'
-        })
-      }, 500)
+  _LoreMore = () => {
+    const { loadmore, isEnd } = this.props.home
+    if (!loadmore) {
+      if (!isEnd) {
+        let page = this.state.page
+        page++
+        this.setState({ page: page })
+        this.props.homeActions.requestHomeList(false, false, true, page)
+      }
     }
   }
 
   render() {
+    const { homeList, isRefreshing } = this.props.home
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
@@ -109,18 +90,13 @@ class Main extends Component {
             renderItem={this.renderRow} //每行显示一项
             enableEmptySections={true} //数据可以为空
             keyExtractor={(item, index) => (item.key = index)}
-            onEndReachedThreshold={0.2} //执行上啦的时候10%执行
-            onEndReached={this.LoreMore}
-            data={
-              this.state.lists
-                ? this.props.home.homeList
-                : this.state.dataSource
-            }
+            onEndReachedThreshold={0.1}
+            onEndReached={() => this._LoreMore()}
+            data={homeList}
             refreshControl={
               <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={() => this._Refresh()}
-                title="Loading..."
+                refreshing={isRefreshing}
+                onRefresh={this._Refresh}
               />
             }
           />
@@ -180,10 +156,8 @@ class Main extends Component {
   }
 
   renderFooter = () => {
-    if (
-      // this.state.dataSource.length != 0 &&
-      this.state.isLoreMoreing == 'LoreMoreing'
-    ) {
+    const { isLoadMore } = this.props.home
+    if (isLoadMore) {
       return (
         <View
           style={{
