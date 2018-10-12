@@ -54,13 +54,18 @@ class Main extends Component {
     super(props)
     this.state = {
       refreshing: false,
-      isLoreMoreing: 'LoreMoreing'
+      isLoreMoreing: 'LoreMoreing',
+      lists: false,
+      dataSource: []
     }
+    this.responseData = []
   }
 
   componentDidMount() {
-    this.props.homeActions.requestHomeList(false, true, false, 0)
-    pages++
+    this.setState({
+      lists: true
+    })
+    this._Refresh()
   }
 
   _Refresh = () => {
@@ -68,9 +73,12 @@ class Main extends Component {
       refreshing: true
     })
     this.props.homeActions.requestHomeList(false, true, false, 0)
+    this.responseData = this.props.home.homeList
     this.setState({
-      refreshing: false
+      refreshing: false,
+      dataSource: this.responseData
     })
+    this.isLoreMore = false
   }
 
   isLoreMore = false
@@ -103,11 +111,15 @@ class Main extends Component {
             keyExtractor={(item, index) => (item.key = index)}
             onEndReachedThreshold={0.2} //执行上啦的时候10%执行
             onEndReached={this.LoreMore}
-            data={this.props.home.homeList}
+            data={
+              this.state.lists
+                ? this.props.home.homeList
+                : this.state.dataSource
+            }
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
-                onRefresh={this._Refresh}
+                onRefresh={() => this._Refresh()}
                 title="Loading..."
               />
             }
