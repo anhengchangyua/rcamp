@@ -3,6 +3,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 import MainContainer from './MainContainer';
 import CoverContainer from './CoverContainer';
 import AboutContainer from './AboutContainer';
+import AirticalDetail from '../pages/MainPage/AirticalDetail';
 const TabContainer = TabNavigator(
   {
     Main: { screen: MainContainer },
@@ -36,7 +37,8 @@ const App = StackNavigator(
       navigationOptions: {
         headerLeft: null
       }
-    }
+    },
+    Web: { screen: AirticalDetail }
   },
   {
     headerMode: 'screen',

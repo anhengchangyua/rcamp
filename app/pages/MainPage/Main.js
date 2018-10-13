@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import Swiper from 'react-native-swiper'
+import React, { Component } from 'react';
+import Swiper from 'react-native-swiper';
 import {
   Text,
   Image,
@@ -9,11 +9,11 @@ import {
   Dimensions,
   RefreshControl,
   DeviceEventEmitter
-} from 'react-native'
+} from 'react-native';
 
-import ListItem from '../../components/ListItem'
+import ListItem from '../../components/ListItem';
 
-const { width } = Dimensions.get('window')
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -46,38 +46,38 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44
   }
-})
-let pages = 0
+});
+let pages = 0;
 class Main extends Component {
   //构造函数
   constructor(props) {
-    super(props)
-    this.state = { page: 0 }
+    super(props);
+    this.state = { page: 0 };
   }
 
   componentDidMount() {
-    this._Refresh()
+    this._Refresh();
   }
 
   _Refresh = () => {
-    this.setState({ page: 0 })
-    this.props.homeActions.requestHomeList(true, false, false, 0)
-  }
+    this.setState({ page: 0 });
+    this.props.homeActions.requestHomeList(true, false, false, 0);
+  };
 
   _LoreMore = () => {
-    const { loadmore, isEnd } = this.props.home
+    const { loadmore, isEnd } = this.props.home;
     if (!loadmore) {
       if (!isEnd) {
-        let page = this.state.page
-        page++
-        this.setState({ page: page })
-        this.props.homeActions.requestHomeList(false, false, true, page)
+        let page = this.state.page;
+        page++;
+        this.setState({ page: page });
+        this.props.homeActions.requestHomeList(false, false, true, page);
       }
     }
-  }
+  };
 
   render() {
-    const { homeList, isRefreshing } = this.props.home
+    const { homeList, isRefreshing } = this.props.home;
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
@@ -102,12 +102,13 @@ class Main extends Component {
           />
         </View>
       </View>
-    )
+    );
   }
 
   renderRow = item => {
-    return <ListItem item={item} />
-  }
+    console.log('pppp', this.props.navigation);
+    return <ListItem navigation={this.props.navigation} item={item} />;
+  };
 
   renderHeader = () => {
     return (
@@ -152,11 +153,11 @@ class Main extends Component {
           </View>
         </Swiper>
       </View>
-    )
-  }
+    );
+  };
 
   renderFooter = () => {
-    const { isLoadMore } = this.props.home
+    const { isLoadMore } = this.props.home;
     if (isLoadMore) {
       return (
         <View
@@ -169,7 +170,7 @@ class Main extends Component {
         >
           <Text>{'正在加载....'}</Text>
         </View>
-      )
+      );
     } else if (this.state.isLoreMoreing == 'LoreMoreEmpty') {
       return (
         <View
@@ -183,11 +184,11 @@ class Main extends Component {
         >
           <Text>{'暂无更多'}</Text>
         </View>
-      )
+      );
     } else {
-      return null
+      return null;
     }
-  }
+  };
 }
 
-export default Main
+export default Main;

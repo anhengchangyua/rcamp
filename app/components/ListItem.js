@@ -3,11 +3,13 @@ import { Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 class ListItem extends PureComponent {
   _onItemClick(item) {
-    console.log('page' + item);
+    const { navigate } = this.props.navigation;
+    console.log('1111111', item);
+    navigate('Web', { item });
   }
   render() {
     let rowData = this.props.item.item;
-    let index = rowData.key;
+
     return (
       <TouchableOpacity
         activeOpacity={0.5}
@@ -17,12 +19,14 @@ class ListItem extends PureComponent {
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <Text>作者: </Text>
-              <Text style={{ color: '#83c9f8' }}>ONGHANGhAI</Text>
-              <Text style={{ position: 'absolute', right: 0 }}>七分钟前</Text>
+              <Text style={{ color: '#83c9f8' }}>{rowData.author}</Text>
+              <Text style={{ position: 'absolute', right: 0 }}>
+                {rowData.niceDate}
+              </Text>
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
-                设置padding相同于同时...
+                {rowData.title}
               </Text>
             </View>
             <View
@@ -32,15 +36,14 @@ class ListItem extends PureComponent {
                 justifyContent: 'space-between'
               }}
             >
-              <Text style={{ color: '#83c9f8', fontSize: 16 }}>创意会</Text>
+              <Text style={{ color: '#83c9f8', fontSize: 16 }}>
+                {rowData.superChapterName}
+              </Text>
               <Icon
                 name="heart"
                 type="font-awesome"
                 color="#f56"
-                style={{
-                  width: 10,
-                  height: 10
-                }}
+                style={{ width: 10, height: 10 }}
                 onPress={() => console.log('hello')}
               />
             </View>
