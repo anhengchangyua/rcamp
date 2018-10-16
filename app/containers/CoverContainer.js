@@ -1,17 +1,30 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Text } from 'react-native';
+import React from 'react'
+import Icon from 'react-native-vector-icons/Ionicons'
+import Cover from '../pages/CoverPage/Cover'
+import { connect } from 'react-redux'
+import { Text } from 'react-native'
 class CoverContainer extends React.Component {
   static navigationOptions = {
     title: '发现',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="md-pricetags" size={25} color={tintColor} />
     )
-  };
+  }
 
   render() {
-    return <Text>发现</Text>;
+    return <Cover {...this.props} />
   }
 }
 
-export default CoverContainer;
+const mapStateToProps = state => {
+  const { cover } = state
+  return { cover }
+}
+const mapDispathToProps = dispatch => {
+  return {}
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispathToProps
+)(CoverContainer)

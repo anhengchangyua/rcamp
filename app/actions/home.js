@@ -8,6 +8,13 @@ export function fetchHomeList(isRefreshing, loading, isLoadMore) {
     isLoadMore
   }
 }
+export function fetchCoverList(loading) {
+  return {
+    type: types.FETCH_COVER_LIST,
+    loading
+  }
+}
+
 export function requestHomeList(isRefreshing, loading, isLoadMore, page) {
   return {
     type: types.REQUEST_HOME_LIST,
@@ -16,6 +23,17 @@ export function requestHomeList(isRefreshing, loading, isLoadMore, page) {
     isLoadMore,
     page
   }
+}
+
+export function requestCoverList(loading) {
+  return {
+    type: types.REQUEST_COVER_LIST,
+    loading
+  }
+}
+
+export function receiveCoverList(homeList) {
+  return { type: types.RECEIVE_COVER_LIST, homeList }
 }
 
 export function receiveHomeList(isEnd, curPage, homeList) {
