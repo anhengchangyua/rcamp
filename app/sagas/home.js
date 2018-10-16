@@ -58,8 +58,8 @@ export function* watchRequestHomeList() {
     const { isRefreshing, loading, isLoadMore, page } = yield take(
       types.REQUEST_HOME_LIST
     )
-    const { loading } = yield take(types.REQUEST_COVER_LIST)
     yield fork(requestHomeList, isRefreshing, loading, isLoadMore, page)
+    yield take(types.REQUEST_COVER_LIST)
     yield fork(requestCoverList, loading)
   }
 }
