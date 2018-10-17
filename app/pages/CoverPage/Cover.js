@@ -1,41 +1,7 @@
-import React, { Component } from 'react'
-import Swiper from 'react-native-swiper'
-import { StyleSheet, FlatList, View } from 'react-native'
-import { List } from 'react-native-elements'
-import CoverItem from '../../components/CoverItem'
+import React, { Component } from 'react';
+import { StyleSheet, FlatList, View } from 'react-native';
+import CoverItem from '../../components/CoverItem';
 
-const styles = StyleSheet.create({
-  wrapper: {},
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB'
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5'
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9'
-  },
-  slide4: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9'
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44
-  }
-})
 const list = [
   {
     name: 'Amy Farha',
@@ -47,8 +13,12 @@ const list = [
       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
     subtitle: 'Vice Chairman'
   }
-]
+];
 class Cover extends Component {
+  componentDidMount() {
+    this.props.coverActions.requestCoverList(true);
+  }
+
   render() {
     return (
       <FlatList
@@ -60,12 +30,12 @@ class Cover extends Component {
         keyExtractor={(item, index) => (item.key = index)}
         data={list}
       />
-    )
+    );
   }
 
   renderRow = item => {
-    return <CoverItem navigation={this.props.navigation} item={item} />
-  }
+    return <CoverItem navigation={this.props.navigation} item={item} />;
+  };
 }
 
-export default Cover
+export default Cover;

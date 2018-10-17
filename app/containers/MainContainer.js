@@ -1,19 +1,10 @@
-import React from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
-import * as homeCreators from '../actions/home'
-import { connect } from 'react-redux'
-import {
-  Text,
-  Image,
-  TouchableWithoutFeedback,
-  Alert,
-  StyleSheet,
-  ListView,
-  View,
-  Dimensions
-} from 'react-native'
-import { bindActionCreators } from 'redux'
-import Main from '../pages/MainPage/Main'
+import React from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
+import * as homeCreators from '../actions/home';
+import { connect } from 'react-redux';
+import { Image, TouchableWithoutFeedback, Alert } from 'react-native';
+import { bindActionCreators } from 'redux';
+import Main from '../pages/MainPage/Main';
 
 class MainContainer extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -30,33 +21,33 @@ class MainContainer extends React.Component {
           />
         </TouchableWithoutFeedback>
       )
-    }
-  }
+    };
+  };
 
   componentWillMount() {
-    this.props.navigation.setParams({ imageOnclick: this._imageOnclick })
+    this.props.navigation.setParams({ imageOnclick: this._imageOnclick });
   }
 
   _imageOnclick = () => {
-    Alert.alert('onPressButton')
-  }
+    Alert.alert('onPressButton');
+  };
   render() {
-    return <Main {...this.props} />
+    return <Main {...this.props} />;
   }
 }
 const mapStateToProps = state => {
-  const { home } = state
-  return { home }
-}
+  const { home } = state;
+  return { home };
+};
 
 const mapDispatchToProps = dispatch => {
-  const homeActions = bindActionCreators(homeCreators, dispatch)
+  const homeActions = bindActionCreators(homeCreators, dispatch);
   return {
     homeActions
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainContainer)
+)(MainContainer);
