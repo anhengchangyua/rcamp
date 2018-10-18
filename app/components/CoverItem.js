@@ -1,13 +1,15 @@
-import React, { PureComponent } from 'react'
-import { Text, View, Dimensions, TouchableOpacity } from 'react-native'
-import { Card, Icon } from 'react-native-elements'
+import React, { PureComponent } from 'react';
+import { Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { Card, Icon } from 'react-native-elements';
 class CoverItem extends PureComponent {
   _onItemClick(item) {
-    const { navigate } = this.props.navigation
-    navigate('Web', { item })
+    // const { navigate } = this.props.navigation
+    // navigate('Web', { item })
+    console.log(item);
   }
   render() {
-    let rowData = this.props.item.item
+    let rowData = this.props.item.item;
+    console.log('rrrrrrr', rowData);
     return (
       <TouchableOpacity
         activeOpacity={0.5}
@@ -15,41 +17,30 @@ class CoverItem extends PureComponent {
       >
         <Card>
           <View style={{ flex: 1 }}>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text>作者: </Text>
-              <Text style={{ color: '#83c9f8' }}>{rowData.author}</Text>
-              <Text style={{ position: 'absolute', right: 0 }}>
-                {rowData.niceDate}
-              </Text>
+            <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
+              <Text style={{ color: '#83c9f8' }}>{rowData.name}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
-                {rowData.title}
-              </Text>
-            </View>
+
             <View
               style={{
                 flex: 1,
                 flexDirection: 'row',
-                justifyContent: 'space-between'
+                justifyContent: 'flex-start',
+                flexWrap: 'wrap',
+                marginTop: 5
               }}
             >
-              <Text style={{ color: '#83c9f8', fontSize: 16 }}>
-                {rowData.superChapterName}
-              </Text>
-              <Icon
-                name="heart"
-                type="font-awesome"
-                color="#f56"
-                style={{ width: 10, height: 10 }}
-                onPress={() => console.log('hello')}
-              />
+              {rowData.children.map(children => (
+                <Text style={{ fontSize: 16, marginLeft: 10 }}>
+                  {children.name}
+                </Text>
+              ))}
             </View>
           </View>
         </Card>
       </TouchableOpacity>
-    )
+    );
   }
 }
 
-export default CoverItem
+export default CoverItem;

@@ -20,15 +20,16 @@ class Cover extends Component {
   }
 
   render() {
+    const { coverList } = this.props.cover;
     return (
       <FlatList
-        showsVerticalScrollIndicator={true} //是否显示垂直滚动条
-        showsHorizontalScrollIndicator={false} //是否显示水平滚动条
-        numColumns={1} //每行显示1个
-        renderItem={this.renderRow} //每行显示一项
-        enableEmptySections={true} //数据可以为空
+        showsVerticalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
+        numColumns={1}
+        renderItem={this.renderRow}
+        enableEmptySections={true}
         keyExtractor={(item, index) => (item.key = index)}
-        data={list}
+        data={coverList}
       />
     );
   }

@@ -13,6 +13,7 @@ class CoverContainer extends React.Component {
   };
 
   render() {
+    console.log(this.props.cover.coverList);
     return <Cover {...this.props} />;
   }
 }
