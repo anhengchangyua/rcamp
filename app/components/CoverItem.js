@@ -9,7 +9,6 @@ class CoverItem extends PureComponent {
   }
   render() {
     let rowData = this.props.item.item;
-    console.log('rrrrrrr', rowData);
     return (
       <TouchableOpacity
         activeOpacity={0.5}

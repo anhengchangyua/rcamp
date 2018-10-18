@@ -56,6 +56,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    this.props.homeActions.requestBannerList(true);
     this._Refresh();
   }
 

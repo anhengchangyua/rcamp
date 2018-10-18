@@ -3,12 +3,12 @@ import * as types from '../constants/ActionTypes';
 import {
   fetchHomeList,
   receiveHomeList,
-  fetchCoverList,
-  receiveCoverList
+  fetchBannerList,
+  receiveBannerList
 } from '../actions/home';
 import RequestUtil from '../utils/RequestUtils';
 import ToastUtil from '../utils/ToastUtil';
-import { HOME_LIST, COVER_LIST } from '../constants/Urls';
+import { HOME_LIST, BANNER_LIST } from '../constants/Urls';
 export function* requestHomeList(isRefreshing, loading, isLoadMore, page) {
   try {
     yield put(fetchHomeList(isRefreshing, loading, isLoadMore)); //  start request tip
@@ -33,11 +33,35 @@ export function* requestHomeList(isRefreshing, loading, isLoadMore, page) {
   }
 }
 
+//Banner saga
+export function* requestBannerList(loading) {
+  try {
+    yield put(fetchBannerList(loading)); //  start request tip
+    console.log('vvvvv');
+    const bannerLists = yield call(
+      RequestUtil.request,
+      `${BANNER_LIST}`,
+      'get'
+    );
+
+    yield put(receiveBannerList(bannerLists.data));
+    const errorMsg = bannerLists.errorMsg;
+    if (errorMsg && errorMsg !== '') {
+      yield ToastUtil.showShort(errorMsg);
+    }
+  } catch (error) {
+    yield put(receiveBannerList([]));
+    ToastUtil.showShort('网络发生错误，请重试');
+  }
+}
+
 export function* watchRequestHomeList() {
   while (true) {
     const { isRefreshing, loading, isLoadMore, page } = yield take(
       types.REQUEST_HOME_LIST
     );
     yield fork(requestHomeList, isRefreshing, loading, isLoadMore, page);
+    yield take(types.REQUEST_BANNER_LIST);
+    yield fork(requestBannerList, true);
   }
 }

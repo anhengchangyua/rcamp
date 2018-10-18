@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   isLoadMore: false,
   noMore: false,
-  homeList: []
+  homeList: [],
+  bannerList: []
 };
 export default function home(state = initialState, action) {
   switch (action.type) {
@@ -31,6 +32,13 @@ export default function home(state = initialState, action) {
         isEnd: action.isEnd
       });
 
+    case types.FETCH_BANNER_LIST:
+      return Object.assign({}, state, {
+        loading: action.loading
+      });
+
+    case types.RECEIVE_BANNER_LIST:
+      return Object.assign({}, state, { bannerList: action.bannerList });
     default:
       return state;
   }
