@@ -56,13 +56,13 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    this.props.homeActions.requestBannerList(true);
     this._Refresh();
   }
 
   _Refresh = () => {
     this.setState({ page: 0 });
     this.props.homeActions.requestHomeList(true, false, false, 0);
+    this.props.homeActions.requestBannerList(true);
   };
 
   _LoreMore = () => {
@@ -79,6 +79,7 @@ class Main extends Component {
 
   render() {
     const { homeList, isRefreshing } = this.props.home;
+
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
@@ -111,25 +112,24 @@ class Main extends Component {
   };
 
   renderHeader = () => {
+    const { bannerList } = this.props.home;
     return (
-      <View
-        style={{
-          width: width,
-          height: 160
-        }}
-      >
+      <View style={{ width: width, height: 160 }}>
         <Swiper
           style={styles.wrapper}
           horizontal={true}
           autoplay={!__DEV__ ? true : false}
         >
-          <View style={styles.slide1}>
-            <Image
-              style={{ width: width, height: 160 }}
-              resizeMode="stretch"
-              source={require('../../assets/img/1.jpg')}
-            />
-          </View>
+          {bannerList.forEach((item, index) => (
+            <View>
+              <Image
+                style={{ width: width, height: 160 }}
+                resizeMode="stretch"
+                source={{ uri: item.imagePath }}
+              />
+            </View>
+          ))}
+
           <View style={styles.slide2}>
             <Image
               style={{ width: width, height: 160 }}

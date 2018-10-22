@@ -37,7 +37,6 @@ export function* requestHomeList(isRefreshing, loading, isLoadMore, page) {
 export function* requestBannerList(loading) {
   try {
     yield put(fetchBannerList(loading)); //  start request tip
-    console.log('vvvvv');
     const bannerLists = yield call(
       RequestUtil.request,
       `${BANNER_LIST}`,
@@ -58,10 +57,10 @@ export function* requestBannerList(loading) {
 export function* watchRequestHomeList() {
   while (true) {
     const { isRefreshing, loading, isLoadMore, page } = yield take(
-      types.REQUEST_HOME_LIST
+      types.REQUEST_HOME_LIST,
+      types.REQUEST_BANNER_LIST
     );
     yield fork(requestHomeList, isRefreshing, loading, isLoadMore, page);
-    yield take(types.REQUEST_BANNER_LIST);
-    yield fork(requestBannerList, true);
+    yield fork(requestBannerList, loading);
   }
 }
