@@ -2,18 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, FlatList, View } from 'react-native';
 import CoverItem from '../../components/CoverItem';
 
-const list = [
-  {
-    name: 'Amy Farha',
-    subtitle: 'Vice President'
-  },
-  {
-    name: 'Chris Jackson',
-    avatar_url:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Vice Chairman'
-  }
-];
+import { SafeAreaView } from 'react-navigation';
 class Cover extends Component {
   componentDidMount() {
     this.props.coverActions.requestCoverList(true);
@@ -22,15 +11,17 @@ class Cover extends Component {
   render() {
     const { coverList } = this.props.cover;
     return (
-      <FlatList
-        showsVerticalScrollIndicator={true}
-        showsHorizontalScrollIndicator={false}
-        numColumns={1}
-        renderItem={this.renderRow}
-        enableEmptySections={true}
-        keyExtractor={(item, index) => (item.key = index)}
-        data={coverList}
-      />
+      <SafeAreaView>
+        <FlatList
+          showsVerticalScrollIndicator={true}
+          showsHorizontalScrollIndicator={false}
+          numColumns={1}
+          renderItem={this.renderRow}
+          enableEmptySections={true}
+          keyExtractor={(item, index) => (item.key = index)}
+          data={coverList}
+        />
+      </SafeAreaView>
     );
   }
 

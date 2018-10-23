@@ -3,16 +3,16 @@ import { Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 class CoverItem extends PureComponent {
   _onItemClick(item) {
-    // const { navigate } = this.props.navigation
-    // navigate('Web', { item })
-    console.log(item);
+    const { navigate } = this.props.navigation;
+    navigate('slide', { item });
+    console.log('IIIIII', item);
   }
   render() {
     let rowData = this.props.item.item;
     return (
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => this._onItemClick(this.props.item)}
+        onPress={() => this._onItemClick(this.props.item.item)}
       >
         <Card>
           <View style={{ flex: 1 }}>

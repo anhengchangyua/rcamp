@@ -10,7 +10,7 @@ import {
   RefreshControl,
   DeviceEventEmitter
 } from 'react-native';
-
+import { SafeAreaView } from 'react-navigation';
 import ListItem from '../../components/ListItem';
 
 const { width } = Dimensions.get('window');
@@ -81,7 +81,7 @@ class Main extends Component {
     const { homeList, isRefreshing } = this.props.home;
 
     return (
-      <View style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
           <FlatList
             showsVerticalScrollIndicator={true} //是否显示垂直滚动条
@@ -103,14 +103,16 @@ class Main extends Component {
             }
           />
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 
   renderRow = item => {
     return <ListItem navigation={this.props.navigation} item={item} />;
   };
-
+  handleBannerItemClick = item => {
+    console.log('iiiii', item);
+  };
   renderHeader = () => {
     const { bannerList } = this.props.home;
     return (
@@ -120,8 +122,11 @@ class Main extends Component {
           horizontal={true}
           autoplay={!__DEV__ ? true : false}
         >
-          {bannerList.forEach((item, index) => (
-            <View>
+          {bannerList.map((item, index) => (
+            <View
+              style={`styles.slide${index + 1}`}
+              onClick={this.handleBannerItemClick}
+            >
               <Image
                 style={{ width: width, height: 160 }}
                 resizeMode="stretch"
@@ -129,28 +134,6 @@ class Main extends Component {
               />
             </View>
           ))}
-
-          <View style={styles.slide2}>
-            <Image
-              style={{ width: width, height: 160 }}
-              resizeMode="stretch"
-              source={require('../../assets/img/2.jpg')}
-            />
-          </View>
-          <View style={styles.slide3}>
-            <Image
-              style={{ width: width, height: 160 }}
-              resizeMode="stretch"
-              source={require('../../assets/img/3.jpg')}
-            />
-          </View>
-          <View style={styles.slide4}>
-            <Image
-              style={{ width: width, height: 160 }}
-              resizeMode="stretch"
-              source={require('../../assets/img/4.jpg')}
-            />
-          </View>
         </Swiper>
       </View>
     );

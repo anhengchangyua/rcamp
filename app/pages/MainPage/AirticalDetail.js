@@ -19,12 +19,6 @@ class AirticalDetail extends Component {
       <Icon name="md-home" size={25} color={tintColor} />
     )
   });
-  constructor(props) {
-    super(props);
-    this.state = {
-      isShareModal: false
-    };
-  }
 
   render() {
     const { link } = this.props.navigation.state.params.item.item;
