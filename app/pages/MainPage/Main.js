@@ -8,7 +8,7 @@ import {
   View,
   Dimensions,
   RefreshControl,
-  DeviceEventEmitter
+  DeviceEventEmitter,
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import ListItem from '../../components/ListItem';
@@ -21,31 +21,31 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9DD6EB'
+    backgroundColor: '#9DD6EB',
   },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#97CAE5'
+    backgroundColor: '#97CAE5',
   },
   slide3: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#92BBD9'
+    backgroundColor: '#92BBD9',
   },
   slide4: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#92BBD9'
+    backgroundColor: '#92BBD9',
   },
   item: {
     padding: 10,
     fontSize: 18,
-    height: 44
-  }
+    height: 44,
+  },
 });
 let pages = 0;
 class Main extends Component {
@@ -82,27 +82,25 @@ class Main extends Component {
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <FlatList
-            showsVerticalScrollIndicator={true} //是否显示垂直滚动条
-            showsHorizontalScrollIndicator={false} //是否显示水平滚动条
-            numColumns={1} //每行显示1个
-            ListHeaderComponent={this.renderHeader} //头部
-            ListFooterComponent={this.renderFooter} //尾巴
-            renderItem={this.renderRow} //每行显示一项
-            enableEmptySections={true} //数据可以为空
-            keyExtractor={(item, index) => (item.key = index)}
-            onEndReachedThreshold={0.1}
-            onEndReached={() => this._LoreMore()}
-            data={homeList}
-            refreshControl={
-              <RefreshControl
-                refreshing={isRefreshing}
-                onRefresh={this._Refresh}
-              />
-            }
-          />
-        </View>
+        <FlatList
+          showsVerticalScrollIndicator={true} //是否显示垂直滚动条
+          showsHorizontalScrollIndicator={false} //是否显示水平滚动条
+          numColumns={1} //每行显示1个
+          ListHeaderComponent={this.renderHeader} //头部
+          ListFooterComponent={this.renderFooter} //尾巴
+          renderItem={this.renderRow} //每行显示一项
+          enableEmptySections={true} //数据可以为空
+          keyExtractor={(item, index) => (item.key = index)}
+          onEndReachedThreshold={0.1}
+          onEndReached={() => this._LoreMore()}
+          data={homeList}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={this._Refresh}
+            />
+          }
+        />
       </SafeAreaView>
     );
   }
@@ -148,7 +146,7 @@ class Main extends Component {
             height: 44,
             backgroundColor: 'rgb(200,200,200)',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <Text>{'正在加载....'}</Text>
@@ -162,7 +160,7 @@ class Main extends Component {
             marginTop: 10,
             backgroundColor: 'rgb(200,200,200)',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <Text>{'暂无更多'}</Text>

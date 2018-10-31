@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-class ListItem extends PureComponent {
+class CoverDetailItem extends PureComponent {
   _onItemClick(item) {
     const { navigate } = this.props.navigation;
     console.log('1111111', item);
@@ -9,7 +9,6 @@ class ListItem extends PureComponent {
   }
   render() {
     let rowData = this.props.item.item;
-
     return (
       <TouchableOpacity
         activeOpacity={0.5}
@@ -54,4 +53,4 @@ class ListItem extends PureComponent {
   }
 }
 
-export default ListItem;
+export default CoverDetailItem;
