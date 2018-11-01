@@ -21,9 +21,9 @@ class CoverDetail extends Component {
     return <CoverDetailItem navigation={this.props.navigation} item={item} />;
   };
   render() {
-    this.props.typeNames.map(name => {
+    this.props.typeNames.map((name, index) => {
       const ListsView = (
-        <View tabLabel={name} style={{ flex: 1 }}>
+        <View key={index} tabLabel={name} style={{ flex: 1 }}>
           this.renderFlatLst()
         </View>
       );
