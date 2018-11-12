@@ -17,3 +17,20 @@ export function requestCoverList(loading) {
 export function receiveCoverList(coverList) {
   return { type: types.RECEIVE_COVER_LIST, coverList };
 }
+
+//DETAIL 
+
+export function fetchCoverDetail(loading) {
+  return {
+    type: types.FETCH_COVER_DETAIL,
+    loading
+  };
+}
+
+
+export function requestCoverDetail(loading){
+  return {
+    type: types.REQUEST_COVER_DETAIL,
+    loading
+  };
+}
