@@ -26,14 +26,14 @@ class CoverDetail extends Component {
     const {children}=   this.props.navigation.state.params.item;
     const ListsView = children &&children.map((item,index) => (
       <View key={index} tabLabel={item.name} style={{ flex: 1 }}>
-          this.renderFlatLst(item.id)   
+          {this.renderFlatLst()}
         </View>
       )
     );
  
 
     return (
-     
+      <SafeAreaView>
  
       <ScrollableTabView
         renderTabBar={() => (
@@ -46,13 +46,14 @@ class CoverDetail extends Component {
       >
          {ListsView }
        </ScrollableTabView>
+      </SafeAreaView>
     );
   }
 
-  renderFlatLst(type) {
+  renderFlatLst() {
     
     return (
-      <SafeAreaView>
+     
         <FlatList
           showsVerticalScrollIndicator={true} //是否显示垂直滚动条
           showsHorizontalScrollIndicator={false} //是否显示水平滚动条
@@ -63,7 +64,7 @@ class CoverDetail extends Component {
           onEndReachedThreshold={0.1}
           data={null}
         />
-      </SafeAreaView>
+     
     );
   }
 }
