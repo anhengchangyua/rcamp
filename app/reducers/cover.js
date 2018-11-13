@@ -1,7 +1,8 @@
 import * as types from '../constants/ActionTypes';
 const initialState = {
   loading: false,
-  coverList: []
+  coverList: [],
+  coverDetailList: []
 };
 
 export default function cover(state = initialState, action) {
@@ -12,6 +13,15 @@ export default function cover(state = initialState, action) {
       return Object.assign({}, state, {
         loading: false,
         coverList: action.coverList
+      });
+    case types.FETCH_COVER_DETAIL:
+      return Object.assign({}, state, {
+        loading: false,
+      });
+    case types.RECEIVE_COVER_DETAIL:
+      return Object.assign({}, state, {
+        loading: false,
+        coverDetailList: action.coverDetailList
       });
 
     default:

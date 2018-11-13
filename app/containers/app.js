@@ -4,7 +4,7 @@ import MainContainer from './MainContainer';
 import CoverContainer from './CoverContainer';
 import AboutContainer from './AboutContainer';
 import AirticalDetail from '../pages/MainPage/AirticalDetail';
-import CoverDetail from '../pages/CoverPage/CoverDetail';
+import CoverDetailContainer from './CoverDetailContainer';
 const TabContainer = TabNavigator(
   {
     Main: { screen: MainContainer },
@@ -40,7 +40,7 @@ const App = StackNavigator(
       }
     },
     Web: { screen: AirticalDetail },
-    slide: { screen: CoverDetail }
+    slide: { screen: CoverDetailContainer }
   },
   {
     headerMode: 'screen',

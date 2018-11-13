@@ -27,10 +27,16 @@ export function fetchCoverDetail(loading) {
   };
 }
 
+export function receiveCoverDetailList(coverDetailList) {
+  return { type: types.RECEIVE_COVER_DETAIL, coverDetailList };
+}
 
-export function requestCoverDetail(loading){
+
+
+export function requestCoverDetail(loading,cid){
   return {
     type: types.REQUEST_COVER_DETAIL,
-    loading
+    loading,
+    cid
   };
 }

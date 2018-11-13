@@ -4,7 +4,6 @@ import { Card, Icon } from 'react-native-elements';
 class CoverDetailItem extends PureComponent {
   _onItemClick(item) {
     const { navigate } = this.props.navigation;
-    console.log('1111111', item);
     navigate('Web', { item });
   }
   render() {

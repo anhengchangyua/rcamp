@@ -15,56 +15,67 @@ import {
 import { SafeAreaView } from 'react-navigation';
 import CoverDetailItem from '../../components/CoverDetailItem';
 class CoverDetail extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.item.name,
-  });
- 
+
+
+  componentDidMount() {
+    const children = this.props.navigation.state.params.item.children;
+    console.log("iiii", children)
+    this.props.coverDetailActions.requestCoverDetail(true, children[0].id)
+  }
+
   renderRow = item => {
     return <CoverDetailItem navigation={this.props.navigation} item={item} />;
   };
   render() {
-    const {children}=   this.props.navigation.state.params.item;
-    const ListsView = children &&children.map((item,index) => (
-      <View key={index} tabLabel={item.name} style={{ flex: 1 }}>
-          {this.renderFlatLst()}
-        </View>
-      )
+
+
+    const { children } = this.props.navigation.state.params.item;
+    const ListsView = children && children.map((item, index) => {
+      return <View key={item.id} tabLabel={item.name} style={styles.base}>
+        {/* {this.renderFlatLst(item.id)} */}
+      </View>
+    }
     );
- 
+
 
     return (
+
+
       <SafeAreaView>
- 
-      <ScrollableTabView
-        renderTabBar={() => (
-          <ScrollableTabBar tabStyle={styles.tab} textStyle={styles.tabText} />
-        )}
-        tabBarBackgroundColor="#fcfcfc"
-        tabBarUnderlineStyle={styles.tabBarUnderline}
-        tabBarActiveTextColor="#3e9ce9"
-        tabBarInactiveTextColor="#aaaaaa"
-      >
-         {ListsView }
-       </ScrollableTabView>
+
+        <ScrollableTabView
+          renderTabBar={() => (
+            <ScrollableTabBar
+              tabStyle={styles.tab}
+              textStyle={styles.tabText}
+            />
+          )}
+          tabBarBackgroundColor="#fcfcfc"
+          tabBarUnderlineStyle={styles.tabBarUnderline}
+          tabBarActiveTextColor="#3e9ce9"
+          tabBarInactiveTextColor="#aaaaaa"
+        >
+          {ListsView}
+        </ScrollableTabView>
       </SafeAreaView>
     );
   }
 
   renderFlatLst() {
-    
+    const { coverDetailList } = this.props.cover;
     return (
-     
-        <FlatList
-          showsVerticalScrollIndicator={true} //是否显示垂直滚动条
-          showsHorizontalScrollIndicator={false} //是否显示水平滚动条
-          numColumns={1} //每行显示1个
-          renderItem={this.renderRow} //每行显示一项
-          enableEmptySections={true} //数据可以为空
-          keyExtractor={(item, index) => (item.key = index)}
-          onEndReachedThreshold={0.1}
-          data={null}
-        />
-     
+
+      <FlatList
+        showsVerticalScrollIndicator={true} //是否显示垂直滚动条
+        showsHorizontalScrollIndicator={false} //是否显示水平滚动条
+        numColumns={1} //每行显示1个
+        renderItem={this.renderRow} //每行显示一项
+        enableEmptySections={true} //数据可以为空
+        keyExtractor={(item, index) => (item.key = index)}
+        onEndReachedThreshold={0.1}
+        data={coverDetailList}
+      />
+
     );
   }
 }

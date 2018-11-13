@@ -4,6 +4,7 @@ import Cover from '../pages/CoverPage/Cover';
 import * as coverCreators from '../actions/cover';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 class CoverContainer extends React.Component {
   static navigationOptions = {
     title: '发现',
