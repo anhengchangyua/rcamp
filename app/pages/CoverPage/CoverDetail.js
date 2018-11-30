@@ -17,12 +17,19 @@ import CoverDetailItem from '../../components/CoverDetailItem';
 class CoverDetail extends Component {
   componentDidMount() {
     const children = this.props.navigation.state.params.item.children;
-    console.log('nnnn', children);
+    children.map((item)=>{
+      this.props.coverDetailActions.requestCoverDetail(true, item.id);
+    })
   }
 
   renderRow = item => {
     return <CoverDetailItem navigation={this.props.navigation} item={item} />;
   };
+
+  handleTabChange=(key)=>{
+    console.log(key)
+    // this.props.coverDetailActions.requestCoverDetail(true, 126);
+  }
 
   render() {
     const { children } = this.props.navigation.state.params.item;
@@ -31,7 +38,7 @@ class CoverDetail extends Component {
       children.map((item, index) => {
         return (
           <View key={item.id} tabLabel={item.name} style={styles.base}>
-            {this.renderFlatLst(item.id)}
+            {this.renderFlatLst()}
           </View>
         );
       });
@@ -44,6 +51,7 @@ class CoverDetail extends Component {
           tabBarUnderlineStyle={styles.tabBarUnderline}
           tabBarActiveTextColor="#3e9ce9"
           tabBarInactiveTextColor="#aaaaaa"
+          onChangeTab={this.handleTabChange}
         >
           {ListsView}
         </ScrollableTabView>
@@ -51,10 +59,10 @@ class CoverDetail extends Component {
     );
   }
 
-  renderFlatLst(titleId) {
-    this.props.coverDetailActions.requestCoverDetail(true, titleId);
-    console.log('SDSD', titleId);
+  renderFlatLst() {
+    
     const { coverDetailList } = this.props.cover;
+    console.log("cccc",coverDetailList.length)
     return (
       <FlatList
         showsVerticalScrollIndicator={true} //是否显示垂直滚动条

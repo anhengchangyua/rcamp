@@ -19,11 +19,10 @@ export default function cover(state = initialState, action) {
         loading: false,
       });
     case types.RECEIVE_COVER_DETAIL:
-      console.log('aaa', action.coverDetailList.length);
-
+      let list = [...state.coverDetailList, ...action.coverDetailList]
       return Object.assign({}, state, {
         loading: false,
-        coverDetailList: action.coverDetailList,
+        coverDetailList: list,
       });
 
     default:

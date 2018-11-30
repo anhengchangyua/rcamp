@@ -1,4 +1,4 @@
-import { take, put, fork, call } from 'redux-saga/effects';
+import { take, takeEvery, put, fork, call } from 'redux-saga/effects';
 import * as types from '../constants/ActionTypes';
 import {
   fetchCoverList,
@@ -27,11 +27,11 @@ export function* requestCoverList(loading) {
   }
 }
 
-export function* requestCoverDetail(loading, cid) {
+export function* requestCoverDetail(action) {
   try {
-    yield put(fetchCoverDetail(loading)); //start request tip
+    yield put(fetchCoverDetail(action.loading)); //start request tip
 
-    const coverDetail = yield call(RequestUtil.request, `${COVER_DETAIL}/?cid=${cid}`, 'get');
+    const coverDetail = yield call(RequestUtil.request, `${COVER_DETAIL}/?cid=${action.cid}`, 'get');
 
     yield put(receiveCoverDetailList(coverDetail.data.datas));
 
@@ -50,7 +50,7 @@ export function* watchRequestCoverList() {
   while (true) {
     const { loadStatus } = yield take(types.REQUEST_COVER_LIST);
     yield fork(requestCoverList, loadStatus);
-    const item = yield take(types.REQUEST_COVER_DETAIL);
-    yield fork(requestCoverDetail, item.loadStatus, item.cid);
+    yield takeEvery(types.REQUEST_COVER_DETAIL, requestCoverDetail);
+    // yield fork();
   }
 }
