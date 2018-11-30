@@ -8,13 +8,10 @@ import { bindActionCreators } from 'redux';
 class CoverContainer extends React.Component {
   static navigationOptions = {
     title: '发现',
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="md-pricetags" size={25} color={tintColor} />
-    )
+    tabBarIcon: ({ tintColor }) => <Icon name="md-pricetags" size={25} color={tintColor} />,
   };
 
   render() {
-    console.log(this.props.cover.coverList);
     return <Cover {...this.props} />;
   }
 }
@@ -30,5 +27,5 @@ const mapDispathToProps = dispatch => {
 
 export default connect(
   mapStateToProps,
-  mapDispathToProps
+  mapDispathToProps,
 )(CoverContainer);

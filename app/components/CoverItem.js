@@ -5,15 +5,11 @@ class CoverItem extends PureComponent {
   _onItemClick(item) {
     const { navigate } = this.props.navigation;
     navigate('slide', { item });
-    console.log('IIIIII', item);
   }
   render() {
     let rowData = this.props.item.item;
     return (
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={() => this._onItemClick(this.props.item.item)}
-      >
+      <TouchableOpacity activeOpacity={0.5} onPress={() => this._onItemClick(this.props.item.item)}>
         <Card>
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10 }}>
@@ -26,13 +22,11 @@ class CoverItem extends PureComponent {
                 flexDirection: 'row',
                 justifyContent: 'flex-start',
                 flexWrap: 'wrap',
-                marginTop: 5
+                marginTop: 5,
               }}
             >
               {rowData.children.map(children => (
-                <Text style={{ fontSize: 16, marginLeft: 10 }}>
-                  {children.name}
-                </Text>
+                <Text style={{ fontSize: 16, marginLeft: 10 }}>{children.name}</Text>
               ))}
             </View>
           </View>

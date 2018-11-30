@@ -15,41 +15,31 @@ import {
 import { SafeAreaView } from 'react-navigation';
 import CoverDetailItem from '../../components/CoverDetailItem';
 class CoverDetail extends Component {
-
-
   componentDidMount() {
     const children = this.props.navigation.state.params.item.children;
-    console.log("iiii", children)
-    this.props.coverDetailActions.requestCoverDetail(true, children[0].id)
+    console.log('nnnn', children);
   }
 
   renderRow = item => {
     return <CoverDetailItem navigation={this.props.navigation} item={item} />;
   };
+
   render() {
-
-
     const { children } = this.props.navigation.state.params.item;
-    const ListsView = children && children.map((item, index) => {
-      return <View key={item.id} tabLabel={item.name} style={styles.base}>
-        {/* {this.renderFlatLst(item.id)} */}
-      </View>
-    }
-    );
-
+    const ListsView =
+      children &&
+      children.map((item, index) => {
+        return (
+          <View key={item.id} tabLabel={item.name} style={styles.base}>
+            {this.renderFlatLst(item.id)}
+          </View>
+        );
+      });
 
     return (
-
-
-      <SafeAreaView>
-
+      <SafeAreaView style={styles.container}>
         <ScrollableTabView
-          renderTabBar={() => (
-            <ScrollableTabBar
-              tabStyle={styles.tab}
-              textStyle={styles.tabText}
-            />
-          )}
+          renderTabBar={() => <ScrollableTabBar tabStyle={styles.tab} textStyle={styles.tabText} />}
           tabBarBackgroundColor="#fcfcfc"
           tabBarUnderlineStyle={styles.tabBarUnderline}
           tabBarActiveTextColor="#3e9ce9"
@@ -61,10 +51,11 @@ class CoverDetail extends Component {
     );
   }
 
-  renderFlatLst() {
+  renderFlatLst(titleId) {
+    this.props.coverDetailActions.requestCoverDetail(true, titleId);
+    console.log('SDSD', titleId);
     const { coverDetailList } = this.props.cover;
     return (
-
       <FlatList
         showsVerticalScrollIndicator={true} //是否显示垂直滚动条
         showsHorizontalScrollIndicator={false} //是否显示水平滚动条
@@ -75,68 +66,66 @@ class CoverDetail extends Component {
         onEndReachedThreshold={0.1}
         data={coverDetailList}
       />
-
     );
   }
 }
 
-
 const styles = StyleSheet.create({
   base: {
-    flex: 1
+    flex: 1,
   },
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   drawerContent: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd'
+    borderBottomColor: '#ddd',
   },
   drawerTitleContent: {
     height: 120,
     justifyContent: 'flex-end',
     padding: 20,
-    backgroundColor: '#3e9ce9'
+    backgroundColor: '#3e9ce9',
   },
   drawerIcon: {
     width: 30,
     height: 30,
-    marginLeft: 5
+    marginLeft: 5,
   },
   drawerTitle: {
     fontSize: 20,
     textAlign: 'left',
-    color: '#fcfcfc'
+    color: '#fcfcfc',
   },
   drawerText: {
     fontSize: 18,
     marginLeft: 15,
     textAlign: 'center',
-    color: 'black'
+    color: 'black',
   },
   timeAgo: {
     fontSize: 14,
     color: '#aaaaaa',
-    marginTop: 5
+    marginTop: 5,
   },
   refreshControlBase: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   tab: {
-    paddingBottom: 0
+    paddingBottom: 0,
   },
   tabText: {
-    fontSize: 16
+    fontSize: 16,
   },
   tabBarUnderline: {
     backgroundColor: '#3e9ce9',
-    height: 2
-  }
+    height: 2,
+  },
 });
 
 export default CoverDetail;

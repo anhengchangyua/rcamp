@@ -4,30 +4,22 @@ import { Card, Icon } from 'react-native-elements';
 class ListItem extends PureComponent {
   _onItemClick(item) {
     const { navigate } = this.props.navigation;
-    console.log('1111111', item);
     navigate('Web', { item });
   }
   render() {
     let rowData = this.props.item.item;
 
     return (
-      <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={() => this._onItemClick(this.props.item)}
-      >
+      <TouchableOpacity activeOpacity={0.5} onPress={() => this._onItemClick(this.props.item)}>
         <Card>
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <Text>作者: </Text>
               <Text style={{ color: '#83c9f8' }}>{rowData.author}</Text>
-              <Text style={{ position: 'absolute', right: 0 }}>
-                {rowData.niceDate}
-              </Text>
+              <Text style={{ position: 'absolute', right: 0 }}>{rowData.niceDate}</Text>
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
-                {rowData.title}
-              </Text>
+              <Text style={{ paddingTop: 10, paddingBottom: 10 }}>{rowData.title}</Text>
             </View>
             <View
               style={{
@@ -36,9 +28,7 @@ class ListItem extends PureComponent {
                 justifyContent: 'space-between',
               }}
             >
-              <Text style={{ color: '#83c9f8', fontSize: 16 }}>
-                {rowData.superChapterName}
-              </Text>
+              <Text style={{ color: '#83c9f8', fontSize: 16 }}>{rowData.superChapterName}</Text>
               <Icon
                 name="heart"
                 type="font-awesome"

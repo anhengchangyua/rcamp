@@ -94,12 +94,7 @@ class Main extends Component {
           onEndReachedThreshold={0.1}
           onEndReached={() => this._LoreMore()}
           data={homeList}
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={this._Refresh}
-            />
-          }
+          refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={this._Refresh} />}
         />
       </SafeAreaView>
     );
@@ -108,23 +103,14 @@ class Main extends Component {
   renderRow = item => {
     return <ListItem navigation={this.props.navigation} item={item} />;
   };
-  handleBannerItemClick = item => {
-    console.log('iiiii', item);
-  };
+  handleBannerItemClick = item => {};
   renderHeader = () => {
     const { bannerList } = this.props.home;
     return (
       <View style={{ width: width, height: 160 }}>
-        <Swiper
-          style={styles.wrapper}
-          horizontal={true}
-          autoplay={!__DEV__ ? true : false}
-        >
+        <Swiper style={styles.wrapper} horizontal={true} autoplay={!__DEV__ ? true : false}>
           {bannerList.map((item, index) => (
-            <View
-              style={`styles.slide${index + 1}`}
-              onClick={this.handleBannerItemClick}
-            >
+            <View style={`styles.slide${index + 1}`} onClick={this.handleBannerItemClick}>
               <Image
                 style={{ width: width, height: 160 }}
                 resizeMode="stretch"
