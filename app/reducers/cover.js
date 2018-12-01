@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes';
 const initialState = {
   loading: false,
   coverList: [],
-  coverDetailList: [],
+  coverDetailList: {},
 };
 
 export default function cover(state = initialState, action) {
@@ -19,7 +19,10 @@ export default function cover(state = initialState, action) {
         loading: false,
       });
     case types.RECEIVE_COVER_DETAIL:
-      let list = [...state.coverDetailList, ...action.coverDetailList]
+      let ll = {};
+      ll[action.coverDetailList[0].chapterId] = action.coverDetailList;
+      let list = { ...state.coverDetailList, ...ll };
+
       return Object.assign({}, state, {
         loading: false,
         coverDetailList: list,

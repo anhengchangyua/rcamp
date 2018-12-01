@@ -13,36 +13,10 @@ import {
   Modal,
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import CoverDetailItem from '../../components/CoverDetailItem';
+import CoverDetailTab from './CoverDetailTab';
 class CoverDetail extends Component {
-  componentDidMount() {
-    const children = this.props.navigation.state.params.item.children;
-    children.map((item)=>{
-      this.props.coverDetailActions.requestCoverDetail(true, item.id);
-    })
-  }
-
-  renderRow = item => {
-    return <CoverDetailItem navigation={this.props.navigation} item={item} />;
-  };
-
-  handleTabChange=(key)=>{
-    console.log(key)
-    // this.props.coverDetailActions.requestCoverDetail(true, 126);
-  }
-
   render() {
     const { children } = this.props.navigation.state.params.item;
-    const ListsView =
-      children &&
-      children.map((item, index) => {
-        return (
-          <View key={item.id} tabLabel={item.name} style={styles.base}>
-            {this.renderFlatLst()}
-          </View>
-        );
-      });
-
     return (
       <SafeAreaView style={styles.container}>
         <ScrollableTabView
@@ -51,29 +25,20 @@ class CoverDetail extends Component {
           tabBarUnderlineStyle={styles.tabBarUnderline}
           tabBarActiveTextColor="#3e9ce9"
           tabBarInactiveTextColor="#aaaaaa"
-          onChangeTab={this.handleTabChange}
         >
-          {ListsView}
+          {children &&
+            children.map((item, index) => {
+              return (
+                <CoverDetailTab
+                  key={index}
+                  tabIndex={item.id}
+                  tabLabel={item.name}
+                  {...this.props}
+                />
+              );
+            })}
         </ScrollableTabView>
       </SafeAreaView>
-    );
-  }
-
-  renderFlatLst() {
-    
-    const { coverDetailList } = this.props.cover;
-    console.log("cccc",coverDetailList.length)
-    return (
-      <FlatList
-        showsVerticalScrollIndicator={true} //是否显示垂直滚动条
-        showsHorizontalScrollIndicator={false} //是否显示水平滚动条
-        numColumns={1} //每行显示1个
-        renderItem={this.renderRow} //每行显示一项
-        enableEmptySections={true} //数据可以为空
-        keyExtractor={(item, index) => (item.key = index)}
-        onEndReachedThreshold={0.1}
-        data={coverDetailList}
-      />
     );
   }
 }

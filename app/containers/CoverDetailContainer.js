@@ -10,8 +10,6 @@ class CoverDetailContainer extends React.Component {
     title: navigation.state.params.item.name,
   });
 
-
-
   render() {
     return <CoverDetail {...this.props} />;
   }
@@ -28,5 +26,5 @@ const mapDispathToProps = dispatch => {
 
 export default connect(
   mapStateToProps,
-  mapDispathToProps
+  mapDispathToProps,
 )(CoverDetailContainer);
