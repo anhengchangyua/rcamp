@@ -14,40 +14,7 @@ import { SafeAreaView } from 'react-navigation';
 import ListItem from '../../components/ListItem';
 
 const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  wrapper: {},
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
-  },
-  slide4: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-});
-let pages = 0;
+ 
 class Main extends Component {
   //构造函数
   constructor(props) {
@@ -106,11 +73,12 @@ class Main extends Component {
   handleBannerItemClick = item => {};
   renderHeader = () => {
     const { bannerList } = this.props.home;
+    console.log("ccc",bannerList.length)
     return (
       <View style={{ width: width, height: 160 }}>
-        <Swiper style={styles.wrapper} horizontal={true} autoplay={!__DEV__ ? true : false}>
+        {bannerList.length>0&&<Swiper   horizontal={true} autoplay={ false }>
           {bannerList.map((item, index) => (
-            <View style={`styles.slide${index + 1}`} onClick={this.handleBannerItemClick}>
+            <View key={index}  onClick={this.handleBannerItemClick}>
               <Image
                 style={{ width: width, height: 160 }}
                 resizeMode="stretch"
@@ -118,7 +86,7 @@ class Main extends Component {
               />
             </View>
           ))}
-        </Swiper>
+        </Swiper>}
       </View>
     );
   };
