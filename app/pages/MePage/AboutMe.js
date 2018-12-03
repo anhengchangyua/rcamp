@@ -13,7 +13,9 @@ class AboutMe extends PureComponent {
   constructor(props) {
     super(props);
   }
-  _listPress = item => {};
+  _listPress = item => {
+    this.props.navigation.navigate('login', { item });
+  };
   render() {
     const list = [
       {

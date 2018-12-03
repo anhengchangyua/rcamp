@@ -53,13 +53,13 @@ class Main extends Component {
           showsVerticalScrollIndicator={true} //是否显示垂直滚动条
           showsHorizontalScrollIndicator={false} //是否显示水平滚动条
           numColumns={1} //每行显示1个
-          ListHeaderComponent={this.renderHeader} //头部
-          ListFooterComponent={this.renderFooter} //尾巴
-          renderItem={this.renderRow} //每行显示一项
+          ListHeaderComponent={ this.renderHeader} //头部
+          ListFooterComponent={ this.renderFooter} //尾巴
+          renderItem={ this.renderRow} //每行显示一项
           enableEmptySections={true} //数据可以为空
           keyExtractor={(item, index) => (item.key = index)}
           onEndReachedThreshold={0.1}
-          onEndReached={() => this._LoreMore()}
+          onEndReached={()=>this._LoreMore()}
           data={homeList}
           refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={this._Refresh} />}
         />
@@ -70,7 +70,9 @@ class Main extends Component {
   renderRow = item => {
     return <ListItem navigation={this.props.navigation} item={item} />;
   };
+
   handleBannerItemClick = item => {};
+
   renderHeader = () => {
     const { bannerList } = this.props.home;
     return (

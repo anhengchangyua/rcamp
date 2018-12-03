@@ -5,6 +5,7 @@ import CoverContainer from './CoverContainer';
 import AboutContainer from './AboutContainer';
 import AirticalDetail from '../pages/MainPage/AirticalDetail';
 import CoverDetailContainer from './CoverDetailContainer';
+import LoginContainer from './LoginContainer'
 const TabContainer = TabNavigator(
   {
     Main: { screen: MainContainer },
@@ -40,7 +41,12 @@ const App = StackNavigator(
       }
     },
     Web: { screen: AirticalDetail },
-    slide: { screen: CoverDetailContainer }
+    slide: { screen: CoverDetailContainer },
+    login: {
+      screen: LoginContainer, navigationOptions: {
+        headerLeft: null,
+          title: '登录',
+      }}
   },
   {
     headerMode: 'screen',
