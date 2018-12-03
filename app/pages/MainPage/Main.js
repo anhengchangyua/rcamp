@@ -14,7 +14,7 @@ import { SafeAreaView } from 'react-navigation';
 import ListItem from '../../components/ListItem';
 
 const { width } = Dimensions.get('window');
- 
+
 class Main extends Component {
   //构造函数
   constructor(props) {
@@ -73,20 +73,21 @@ class Main extends Component {
   handleBannerItemClick = item => {};
   renderHeader = () => {
     const { bannerList } = this.props.home;
-    console.log("ccc",bannerList.length)
     return (
       <View style={{ width: width, height: 160 }}>
-        {bannerList.length>0&&<Swiper   horizontal={true} autoplay={ false }>
-          {bannerList.map((item, index) => (
-            <View key={index}  onClick={this.handleBannerItemClick}>
-              <Image
-                style={{ width: width, height: 160 }}
-                resizeMode="stretch"
-                source={{ uri: item.imagePath }}
-              />
-            </View>
-          ))}
-        </Swiper>}
+        {bannerList.length > 0 && (
+          <Swiper horizontal={true} autoplay={false}>
+            {bannerList.map((item, index) => (
+              <View key={index} onClick={this.handleBannerItemClick}>
+                <Image
+                  style={{ width: width, height: 160 }}
+                  resizeMode="stretch"
+                  source={{ uri: item.imagePath }}
+                />
+              </View>
+            ))}
+          </Swiper>
+        )}
       </View>
     );
   };

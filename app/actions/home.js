@@ -5,7 +5,7 @@ export function fetchHomeList(isRefreshing, loading, isLoadMore) {
     type: types.FETCH_HOME_LIST,
     isRefreshing,
     loading,
-    isLoadMore
+    isLoadMore,
   };
 }
 
@@ -15,7 +15,7 @@ export function requestHomeList(isRefreshing, loading, isLoadMore, page) {
     isRefreshing,
     loading,
     isLoadMore,
-    page
+    page,
   };
 }
 
@@ -31,7 +31,7 @@ export function requestBannerList(loading) {
 export function fetchBannerList(loading) {
   return {
     type: types.FETCH_BANNER_LIST,
-    loading
+    loading,
   };
 }
 

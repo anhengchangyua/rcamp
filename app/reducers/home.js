@@ -5,7 +5,7 @@ const initialState = {
   isLoadMore: false,
   noMore: false,
   homeList: [],
-  bannerList: []
+  bannerList: [],
 };
 export default function home(state = initialState, action) {
   switch (action.type) {
@@ -13,14 +13,14 @@ export default function home(state = initialState, action) {
       return Object.assign({}, state, {
         isRefreshing: action.isRefreshing,
         loading: action.loading,
-        isLoadMore: action.isLoadMore
+        isLoadMore: action.isLoadMore,
       });
 
     case types.RECEIVE_HOME_LIST:
       if (action.curPage == 1) {
         datas = action.homeList;
       } else {
-        datas = [...datas, ...action.homeList];
+        datas = [...state.homeList, ...action.homeList];
       }
 
       return Object.assign({}, state, {
@@ -29,12 +29,12 @@ export default function home(state = initialState, action) {
         isLoadMore: false,
         noMore: action.homeList.length === 0,
         homeList: datas,
-        isEnd: action.isEnd
+        isEnd: action.isEnd,
       });
 
     case types.FETCH_BANNER_LIST:
       return Object.assign({}, state, {
-        loading: action.loading
+        loading: action.loading,
       });
 
     case types.RECEIVE_BANNER_LIST:

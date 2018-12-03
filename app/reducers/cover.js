@@ -1,6 +1,9 @@
 import * as types from '../constants/ActionTypes';
 const initialState = {
+  isRefreshing: false,
   loading: false,
+  isLoadMore: false,
+  noMore: false,
   coverList: [],
   coverDetailList: {},
 };
@@ -20,12 +23,26 @@ export default function cover(state = initialState, action) {
       });
     case types.RECEIVE_COVER_DETAIL:
       let ll = {};
-      ll[action.coverDetailList[0].chapterId] = action.coverDetailList;
-      let list = { ...state.coverDetailList, ...ll };
+      if (action.coverDetailList.length > 0) {
+        if (action.curPage == 1) {
+          ll[action.coverDetailList[0].chapterId] = action.coverDetailList;
+          datas = { ...state.coverDetailList, ...ll };
+        } else {
+          ll[action.coverDetailList[0].chapterId] = [
+            ...state.coverDetailList[action.coverDetailList[0].chapterId],
+            ...action.coverDetailList,
+          ];
+          datas = { ...state.coverDetailList, ...ll };
+        }
+      }
 
       return Object.assign({}, state, {
+        isRefreshing: false,
+        isLoadMore: false,
+        noMore: action.coverDetailList.length === 0,
+        isEnd: action.isEnd,
         loading: false,
-        coverDetailList: list,
+        coverDetailList: datas,
       });
 
     default:

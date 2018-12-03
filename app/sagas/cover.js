@@ -31,9 +31,15 @@ export function* requestCoverDetail(action) {
   try {
     yield put(fetchCoverDetail(action.loading)); //start request tip
 
-    const coverDetail = yield call(RequestUtil.request, `${COVER_DETAIL}/?cid=${action.cid}`, 'get');
+    const coverDetail = yield call(
+      RequestUtil.request,
+      `${COVER_DETAIL}/${action.page}/json?cid=${action.cid}`,
+      'get',
+    );
 
-    yield put(receiveCoverDetailList(coverDetail.data.datas));
+    let isEnd = coverDetail.data.curPage > coverDetail.data.pageCount;
+
+    yield put(receiveCoverDetailList(isEnd, coverDetail.data.curPage, coverDetail.data.datas));
 
     const errorMsg = coverDetail.errorMsg;
 
