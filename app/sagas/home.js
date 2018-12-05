@@ -4,7 +4,7 @@ import {
   fetchHomeList,
   receiveHomeList,
   fetchBannerList,
-  receiveBannerList
+  receiveBannerList,
 } from '../actions/home';
 import RequestUtil from '../utils/RequestUtils';
 import ToastUtil from '../utils/ToastUtil';
@@ -13,15 +13,9 @@ export function* requestHomeList(isRefreshing, loading, isLoadMore, page) {
   try {
     yield put(fetchHomeList(isRefreshing, loading, isLoadMore)); //  start request tip
 
-    const homeLists = yield call(
-      RequestUtil.request,
-      `${HOME_LIST}/${page}/json`,
-      'get'
-    );
+    const homeLists = yield call(RequestUtil.request, `${HOME_LIST}/${page}/json`, 'get');
     let isEnd = homeLists.data.curPage > homeLists.data.pageCount;
-    yield put(
-      receiveHomeList(isEnd, homeLists.data.curPage, homeLists.data.datas)
-    );
+    yield put(receiveHomeList(isEnd, homeLists.data.curPage, homeLists.data.datas));
     const errorMsg = homeLists.errorMsg;
 
     if (errorMsg && errorMsg !== '') {
@@ -37,11 +31,7 @@ export function* requestHomeList(isRefreshing, loading, isLoadMore, page) {
 export function* requestBannerList(loading) {
   try {
     yield put(fetchBannerList(loading)); //  start request tip
-    const bannerLists = yield call(
-      RequestUtil.request,
-      `${BANNER_LIST}`,
-      'get'
-    );
+    const bannerLists = yield call(RequestUtil.request, `${BANNER_LIST}`, 'get');
 
     yield put(receiveBannerList(bannerLists.data));
     const errorMsg = bannerLists.errorMsg;
@@ -58,7 +48,7 @@ export function* watchRequestHomeList() {
   while (true) {
     const { isRefreshing, loading, isLoadMore, page } = yield take(
       types.REQUEST_HOME_LIST,
-      types.REQUEST_BANNER_LIST
+      types.REQUEST_BANNER_LIST,
     );
     yield fork(requestHomeList, isRefreshing, loading, isLoadMore, page);
     yield fork(requestBannerList, loading);

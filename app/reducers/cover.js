@@ -3,7 +3,7 @@ const initialState = {
   isRefreshing: false,
   loading: false,
   isLoadMore: false,
-  noMore: false,
+  isEnd: false,
   coverList: [],
   coverDetailList: {},
 };
@@ -18,9 +18,12 @@ export default function cover(state = initialState, action) {
         coverList: action.coverList,
       });
     case types.FETCH_COVER_DETAIL:
-      return Object.assign({}, state, {
-        loading: false,
-      });
+      return {
+        ...state,
+        isRefreshing: action.isRefreshing,
+        loading: action.loading,
+        isLoadMore: action.isLoadMore,
+      };
     case types.RECEIVE_COVER_DETAIL:
       let ll = {};
       if (action.coverDetailList.length > 0) {
@@ -39,7 +42,6 @@ export default function cover(state = initialState, action) {
       return Object.assign({}, state, {
         isRefreshing: false,
         isLoadMore: false,
-        noMore: action.coverDetailList.length === 0,
         isEnd: action.isEnd,
         loading: false,
         coverDetailList: datas,

@@ -5,12 +5,12 @@ import CoverContainer from './CoverContainer';
 import AboutContainer from './AboutContainer';
 import AirticalDetail from '../pages/MainPage/AirticalDetail';
 import CoverDetailContainer from './CoverDetailContainer';
-import LoginContainer from './LoginContainer'
+import LoginContainer from './LoginContainer';
 const TabContainer = TabNavigator(
   {
     Main: { screen: MainContainer },
     Cover: { screen: CoverContainer },
-    About: { screen: AboutContainer }
+    About: { screen: AboutContainer },
   },
   {
     lazy: true,
@@ -20,16 +20,16 @@ const TabContainer = TabNavigator(
       inactiveTintColor: '#999999',
       showIcon: true,
       style: {
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
       },
       indicatorStyle: {
-        opacity: 0
+        opacity: 0,
       },
       tabStyle: {
-        padding: 0
-      }
-    }
-  }
+        padding: 0,
+      },
+    },
+  },
 );
 
 const App = StackNavigator(
@@ -37,30 +37,31 @@ const App = StackNavigator(
     Home: {
       screen: TabContainer,
       navigationOptions: {
-        headerLeft: null
-      }
+        headerLeft: null,
+      },
     },
     Web: { screen: AirticalDetail },
     slide: { screen: CoverDetailContainer },
     login: {
-      screen: LoginContainer, navigationOptions: {
-        headerLeft: null,
-          title: '登录',
-      }}
+      screen: LoginContainer,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
     headerMode: 'screen',
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#3e9ce9'
+        backgroundColor: '#3e9ce9',
       },
       headerTitleStyle: {
         color: '#fff',
-        fontSize: 20
+        fontSize: 20,
       },
-      headerTintColor: '#fff'
-    }
-  }
+      headerTintColor: '#fff',
+    },
+  },
 );
 
 export default App;

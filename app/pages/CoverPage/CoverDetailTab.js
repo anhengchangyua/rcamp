@@ -24,7 +24,7 @@ class CoverDetailTab extends Component {
   }
 
   renderFooter = () => {
-    const { isLoadMore } = this.props.cover;
+    const { isLoadMore, isEnd } = this.props.cover;
     if (isLoadMore) {
       return (
         <View
@@ -38,7 +38,7 @@ class CoverDetailTab extends Component {
           <Text>{'正在加载....'}</Text>
         </View>
       );
-    } else if (this.state.isLoreMoreing == 'LoreMoreEmpty') {
+    } else if (isEnd) {
       return (
         <View
           style={{
@@ -61,17 +61,16 @@ class CoverDetailTab extends Component {
     const { tabIndex } = this.props;
     if (!isLoadmore) {
       if (!isEnd) {
-        let page = this.state.page;
-        page++;
-        this.setState({ page: page });
-        this.props.coverDetailActions.requestCoverDetail(false, true, false, page, tabIndex);
+        let { page } = this.state;
+        this.setState({ page: page++ });
+        this.props.coverDetailActions.requestCoverDetail(false, true, true, page, tabIndex);
       }
     }
   };
   _Refresh = () => {
     const { tabIndex } = this.props;
     this.setState({ page: 0 });
-    this.props.coverDetailActions.requestCoverDetail(false, true, false, 0, tabIndex);
+    this.props.coverDetailActions.requestCoverDetail(true, true, false, 0, tabIndex);
   };
 
   renderRow = item => {

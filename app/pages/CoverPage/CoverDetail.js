@@ -26,7 +26,7 @@ class CoverDetail extends Component {
           tabBarActiveTextColor="#3e9ce9"
           tabBarInactiveTextColor="#aaaaaa"
         >
-          {children &&
+          {children.length > 0 &&
             children.map((item, index) => {
               return (
                 <CoverDetailTab

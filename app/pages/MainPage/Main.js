@@ -28,22 +28,53 @@ class Main extends Component {
 
   _Refresh = () => {
     this.setState({ page: 0 });
-    this.props.homeActions.requestHomeList(true, false, false, 0);
+    this.props.homeActions.requestHomeList(true, true, false, 0);
     this.props.homeActions.requestBannerList(true);
   };
 
   _LoreMore = () => {
-    const { loadmore, isEnd } = this.props.home;
-    if (!loadmore) {
+    const { isLoadmore, isEnd } = this.props.home;
+    if (!isLoadmore) {
       if (!isEnd) {
         let page = this.state.page;
-        page++;
-        this.setState({ page: page });
-        this.props.homeActions.requestHomeList(false, false, true, page);
+        this.setState({ page: page++ });
+        this.props.homeActions.requestHomeList(false, true, true, page);
       }
     }
   };
-
+  renderFooter = () => {
+    const { isLoadMore, isEnd } = this.props.home;
+    if (isLoadMore) {
+      return (
+        <View
+          style={{
+            height: 44,
+            backgroundColor: 'rgb(200,200,200)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text>{'正在加载....'}</Text>
+        </View>
+      );
+    } else if (isEnd) {
+      return (
+        <View
+          style={{
+            height: 22,
+            marginTop: 10,
+            backgroundColor: 'rgb(200,200,200)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text>{'暂无更多'}</Text>
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
   render() {
     const { homeList, isRefreshing } = this.props.home;
 
@@ -53,13 +84,13 @@ class Main extends Component {
           showsVerticalScrollIndicator={true} //是否显示垂直滚动条
           showsHorizontalScrollIndicator={false} //是否显示水平滚动条
           numColumns={1} //每行显示1个
-          ListHeaderComponent={ this.renderHeader} //头部
-          ListFooterComponent={ this.renderFooter} //尾巴
-          renderItem={ this.renderRow} //每行显示一项
+          ListHeaderComponent={this.renderHeader} //头部
+          ListFooterComponent={this.renderFooter} //尾巴
+          renderItem={this.renderRow} //每行显示一项
           enableEmptySections={true} //数据可以为空
           keyExtractor={(item, index) => (item.key = index)}
           onEndReachedThreshold={0.1}
-          onEndReached={()=>this._LoreMore()}
+          onEndReached={() => this._LoreMore()}
           data={homeList}
           refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={this._Refresh} />}
         />
@@ -92,40 +123,6 @@ class Main extends Component {
         )}
       </View>
     );
-  };
-
-  renderFooter = () => {
-    const { isLoadMore } = this.props.home;
-    if (isLoadMore) {
-      return (
-        <View
-          style={{
-            height: 44,
-            backgroundColor: 'rgb(200,200,200)',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>{'正在加载....'}</Text>
-        </View>
-      );
-    } else if (this.state.isLoreMoreing == 'LoreMoreEmpty') {
-      return (
-        <View
-          style={{
-            height: 22,
-            marginTop: 10,
-            backgroundColor: 'rgb(200,200,200)',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>{'暂无更多'}</Text>
-        </View>
-      );
-    } else {
-      return null;
-    }
   };
 }
 

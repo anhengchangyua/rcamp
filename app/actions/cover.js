@@ -20,10 +20,12 @@ export function receiveCoverList(coverList) {
 
 //DETAIL
 
-export function fetchCoverDetail(loading) {
+export function fetchCoverDetail(isRefreshing, loading, isLoadMore) {
   return {
     type: types.FETCH_COVER_DETAIL,
+    isRefreshing,
     loading,
+    isLoadMore,
   };
 }
 

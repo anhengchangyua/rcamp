@@ -29,7 +29,7 @@ export function* requestCoverList(loading) {
 
 export function* requestCoverDetail(action) {
   try {
-    yield put(fetchCoverDetail(action.loading)); //start request tip
+    yield put(fetchCoverDetail(action.isRefreshing, action.loading, action.isLoadMore)); //start request tip
 
     const coverDetail = yield call(
       RequestUtil.request,
