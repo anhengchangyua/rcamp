@@ -1,26 +1,38 @@
-import React from 'react';
-import { StyleSheet, View, Text, ImageBackground, Image, KeyboardAvoidingView } from 'react-native';
-import bgSrc from '../../assets/img/wallpaper.png';
-import logoImg from '../../assets/img/logo.png';
-import userName from '../../assets/img/username.png';
-import passWord from '../../assets/img/password.png';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
-import UserInput from '../../components/UserInput';
+import React from 'react'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  ImageBackground,
+  Image,
+  KeyboardAvoidingView,
+  Animated,
+  Dimensions
+} from 'react-native'
+import bgSrc from '../../assets/img/wallpaper.png'
+import logoImg from '../../assets/img/logo.png'
 
+import userName from '../../assets/img/username.png'
+import passWord from '../../assets/img/password.png'
+import UserInput from '../../components/UserInput'
+const DEVICE_WIDTH = Dimensions.get('window').width
+const DEVICE_HEIGHT = Dimensions.get('window').height
+const MARGIN = 40
 class Login extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       showPass: true,
-      press: false,
-    };
+      press: false
+    }
   }
   showPass = () => {
     this.state.press === false
       ? this.setState({ showPass: false, press: true })
-      : this.setState({ showPass: true, press: false });
-  };
+      : this.setState({ showPass: true, press: false })
+  }
+
   render() {
     return (
       <ImageBackground style={styles.picture} source={bgSrc}>
@@ -28,7 +40,10 @@ class Login extends React.Component {
           <Image source={logoImg} style={styles.image} />
           <Text style={styles.text}>WAN ANDROID</Text>
         </View>
-        <KeyboardAvoidingView behavior="position" style={{ flex: 2, alignItems: 'center' }}>
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={{ flex: 1, alignItems: 'center' }}
+        >
           <UserInput
             source={userName}
             placeholder="用户名"
@@ -45,31 +60,61 @@ class Login extends React.Component {
             autoCorrect={false}
           />
         </KeyboardAvoidingView>
+        <View style={styles.container1}>
+          <Animated.View style={styles.animated}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this._onPress}
+              activeOpacity={1}
+            >
+              <Text style={styles.text}>登录</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
       </ImageBackground>
-    );
+    )
   }
 }
 const styles = StyleSheet.create({
+  container1: {
+    flex: 1,
+    top: 0,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+  animated: {
+    width: DEVICE_WIDTH - MARGIN
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F035E0',
+    height: MARGIN,
+    borderRadius: 20,
+    zIndex: 100
+  },
+  text: {
+    color: 'white',
+    backgroundColor: 'transparent'
+  },
   picture: {
     flex: 1,
     width: null,
     height: null,
-    resizeMode: 'cover',
+    resizeMode: 'cover'
   },
   container: {
     flex: 2,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   image: {
     width: 80,
-    height: 80,
+    height: 80
   },
   text: {
     color: 'white',
-    fontWeight: 'bold',
-    backgroundColor: 'transparent',
-    marginTop: 20,
-  },
-});
-export default Login;
+    fontWeight: 'bold'
+  }
+})
+export default Login
