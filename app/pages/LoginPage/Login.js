@@ -24,13 +24,32 @@ class Login extends React.Component {
     super(props)
     this.state = {
       showPass: true,
-      press: false
+      press: false,
+      passWord: null,
+      userName: null
     }
   }
   showPass = () => {
     this.state.press === false
       ? this.setState({ showPass: false, press: true })
       : this.setState({ showPass: true, press: false })
+  }
+  _onChangeText = inputData => {
+    this.setState({
+      passWord: inputData
+    })
+  }
+
+  _onChangeText1 = inputData => {
+    this.setState({
+      userName: inputData
+    })
+  }
+  _onPress = () => {
+    this.props.appActions.requestLogin(true, {
+      username: this.state.userName,
+      password: this.state.passWord
+    })
   }
 
   render() {
@@ -47,6 +66,7 @@ class Login extends React.Component {
           <UserInput
             source={userName}
             placeholder="用户名"
+            _onChangeText={this._onChangeText1}
             autoCapitalize={'none'}
             returnKeyType={'done'}
             autoCorrect={false}
@@ -55,6 +75,7 @@ class Login extends React.Component {
             source={passWord}
             secureTextEntry={this.state.showPass}
             placeholder="密码"
+            _onChangeText={this._onChangeText}
             returnKeyType={'done'}
             autoCapitalize={'none'}
             autoCorrect={false}
