@@ -1,34 +1,37 @@
 const request = (url, method, body) => {
-  let isOk;
+  let isOk
+  console.log(body)
   return new Promise((resolve, reject) => {
     fetch(url, {
       method,
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        Accept: 'application/json',
+        //'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
       },
       body
     })
       .then(response => {
         if (response.ok) {
-          isOk = true;
+          isOk = true
         } else {
-          isOk = false;
+          isOk = false
         }
-        return response.json();
+        return response.json()
       })
       .then(responseData => {
         if (isOk) {
-          resolve(responseData);
+          resolve(responseData)
         } else {
-          reject(responseData);
+          reject(responseData)
         }
       })
       .catch(error => {
-        reject(error);
-      });
-  });
-};
+        reject(error)
+      })
+  })
+}
 
 export default {
   request
-};
+}
