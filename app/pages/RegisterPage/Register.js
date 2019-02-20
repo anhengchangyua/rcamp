@@ -21,13 +21,14 @@ import UserInput from '../../components/UserInput'
 const DEVICE_WIDTH = Dimensions.get('window').width
 const DEVICE_HEIGHT = Dimensions.get('window').height
 const MARGIN = 40
-class Login extends React.Component {
+class Register extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       showPass: true,
       press: false,
       passWord: null,
+      repassWord: null,
       userName: null
     }
   }
@@ -47,17 +48,18 @@ class Login extends React.Component {
       userName: inputData
     })
   }
-  _onPress = () => {
-    let formData = new FormData()
-    formData.append('username', this.state.userName)
-    formData.append('password', this.state.passWord)
-    request.post('http://www.wanandroid.com/user/login', formData).then(res => {
-      console.log(res)
+  _onChangeText2 = inputData => {
+    this.setState({
+      repassWord: inputData
     })
   }
-  _onHandleRegister = () => {
-    console.log('0123')
-    this.props.navigation.navigate('register')
+  _onPress = () => {
+    // let formData = new FormData()
+    // formData.append('username', this.state.userName)
+    // formData.append('password', this.state.passWord)
+    // request.post('http://www.wanandroid.com/user/login', formData).then(res => {
+    //   console.log(res)
+    // })
   }
 
   render() {
@@ -88,6 +90,15 @@ class Login extends React.Component {
             autoCapitalize={'none'}
             autoCorrect={false}
           />
+          <UserInput
+            source={passWord}
+            secureTextEntry={this.state.showPass}
+            placeholder="确认密码"
+            _onChangeText={this._onChangeText2}
+            returnKeyType={'done'}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+          />
         </KeyboardAvoidingView>
         <View style={styles.container1}>
           <Animated.View style={styles.animated}>
@@ -96,20 +107,8 @@ class Login extends React.Component {
               onPress={this._onPress}
               activeOpacity={1}
             >
-              <Text style={styles.text}>登录</Text>
+              <Text style={styles.text}>注册</Text>
             </TouchableOpacity>
-            <View style={{ flexDirection: 'row', height: 60 }}>
-              <View style={{ flex: 1, padding: 20 }}>
-                <Text style={styles.text}>没有账号?</Text>
-              </View>
-              <TouchableOpacity
-                style={styles.register}
-                onPress={this._onHandleRegister}
-                activeOpacity={1}
-              >
-                <Text style={styles.textRegister}>注册</Text>
-              </TouchableOpacity>
-            </View>
           </Animated.View>
         </View>
       </ImageBackground>
@@ -165,4 +164,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 })
-export default Login
+export default Register

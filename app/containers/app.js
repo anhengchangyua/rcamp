@@ -6,6 +6,7 @@ import AboutContainer from './AboutContainer'
 import AirticalDetail from '../pages/MainPage/AirticalDetail'
 import CoverDetailContainer from './CoverDetailContainer'
 import LoginContainer from './LoginContainer'
+import RegisterContainer from './RegisterContainer'
 const TabContainer = TabNavigator(
   {
     Main: { screen: MainContainer },
@@ -44,6 +45,12 @@ const App = StackNavigator(
     slide: { screen: CoverDetailContainer },
     login: {
       screen: LoginContainer,
+      navigationOptions: {
+        header: null
+      }
+    },
+    register: {
+      screen: RegisterContainer,
       navigationOptions: {
         header: null
       }
