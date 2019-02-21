@@ -1,7 +1,11 @@
 import axios from 'axios'
+import qs from 'qs'
 
 // axios.defaults.baseURL = process.env.REACT_APP_REQUEST_URL
 // axios.defaults.baseURL = 'https://easy-mock.com/mock/5b627ab170818661082f1f9c/example';
+axios.defaults.headers.post['Content-Type'] =
+  'application/x-www-form-urlencoded; charset=UTF-8'
+
 axios.defaults.timeout = 5000
 // 创建axios实例
 const service = axios.create()
@@ -53,9 +57,7 @@ export default {
     else return service.get(url, { params: params })
   },
   post: (url, params) => {
-    return service.post(url, params, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    })
+    return service.post(url, qs.stringify(params))
   },
   delete: (url, params) => {
     return service.delete(url, { data: params })

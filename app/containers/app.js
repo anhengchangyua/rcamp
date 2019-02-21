@@ -36,6 +36,12 @@ const TabContainer = TabNavigator(
 const App = StackNavigator(
   {
     Home: {
+      screen: LoginContainer,
+      navigationOptions: {
+        header: null
+      }
+    },
+    tab: {
       screen: TabContainer,
       navigationOptions: {
         headerLeft: null

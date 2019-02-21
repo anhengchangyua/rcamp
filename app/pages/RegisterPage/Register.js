@@ -1,5 +1,4 @@
 import React from 'react'
-import RequestUtil from '../../utils/RequestUtils'
 import request from '../../utils/request'
 import {
   StyleSheet,
@@ -57,9 +56,19 @@ class Register extends React.Component {
     // let formData = new FormData()
     // formData.append('username', this.state.userName)
     // formData.append('password', this.state.passWord)
-    // request.post('http://www.wanandroid.com/user/login', formData).then(res => {
-    //   console.log(res)
-    // })
+    const params = {
+      username: this.state.userName,
+      password: this.state.passWord,
+      repassword: this.state.repassWord
+    }
+    request.post('http://www.wanandroid.com/user/register', params).then(
+      res => {
+        console.log(res)
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React from 'react'
-import RequestUtil from '../../utils/RequestUtils'
 import request from '../../utils/request'
+import { putUserInfo, loadAllInfo } from '../../realm/UserInfoSchema'
 import {
   StyleSheet,
   TouchableOpacity,
@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import bgSrc from '../../assets/img/wallpaper.png'
 import logoImg from '../../assets/img/logo.png'
-
+import ToastUtil from '../../utils/ToastUtil'
 import userName from '../../assets/img/username.png'
 import passWord from '../../assets/img/password.png'
 import UserInput from '../../components/UserInput'
@@ -31,6 +31,15 @@ class Login extends React.Component {
       userName: null
     }
   }
+
+  componentDidMount() {
+    const data = loadAllInfo('UserData')
+    console.log(data[0])
+    if (data[0]) {
+      this.props.navigation.navigate('tab')
+    }
+  }
+
   showPass = () => {
     this.state.press === false
       ? this.setState({ showPass: false, press: true })
@@ -48,15 +57,23 @@ class Login extends React.Component {
     })
   }
   _onPress = () => {
-    let formData = new FormData()
-    formData.append('username', this.state.userName)
-    formData.append('password', this.state.passWord)
-    request.post('http://www.wanandroid.com/user/login', formData).then(res => {
-      console.log(res)
+    const params = {
+      username: this.state.userName,
+      password: this.state.passWord
+    }
+    request.post('http://www.wanandroid.com/user/login', params).then(res => {
+      if (res.errorCode < 0) {
+        ToastUtil.showShort(res.errorMsg)
+      } else {
+        ToastUtil.showShort('登录成功')
+        putUserInfo('UserData', res.data)
+        this.props.navigation.navigate('tab')
+        console.log(loadAllInfo('UserData'))
+      }
     })
   }
+
   _onHandleRegister = () => {
-    console.log('0123')
     this.props.navigation.navigate('register')
   }
 
@@ -142,8 +159,8 @@ const styles = StyleSheet.create({
   },
   textRegister: {
     color: 'white',
-    fontSize: 20,
-    backgroundColor: 'transparent'
+    fontWeight: 'bold',
+    fontSize: 20
   },
   picture: {
     flex: 1,
