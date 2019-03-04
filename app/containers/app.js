@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import { StackNavigator, TabNavigator } from 'react-navigation'
+import {
+  StackNavigator,
+  TabNavigator,
+  createSwitchNavigator
+} from 'react-navigation'
 import MainContainer from './MainContainer'
 import CoverContainer from './CoverContainer'
 import AboutContainer from './AboutContainer'
@@ -33,14 +37,29 @@ const TabContainer = TabNavigator(
   }
 )
 
+const Login = StackNavigator({
+  login: {
+    screen: LoginContainer,
+    navigationOptions: {
+      header: null
+    }
+  }
+})
+
 const App = StackNavigator(
   {
-    Home: {
-      screen: LoginContainer,
-      navigationOptions: {
-        header: null
-      }
-    },
+    // login: {
+    //   screen: LoginContainer,
+    //   navigationOptions: {
+    //     header: null
+    //   }
+    // },
+    // Home: {
+    //   screen: LoginContainer,
+    //   navigationOptions: {
+    //     header: null
+    //   }
+    // },
     tab: {
       screen: TabContainer,
       navigationOptions: {
@@ -49,12 +68,7 @@ const App = StackNavigator(
     },
     Web: { screen: AirticalDetail },
     slide: { screen: CoverDetailContainer },
-    login: {
-      screen: LoginContainer,
-      navigationOptions: {
-        header: null
-      }
-    },
+
     register: {
       screen: RegisterContainer,
       navigationOptions: {
@@ -76,5 +90,10 @@ const App = StackNavigator(
     }
   }
 )
+
+// const SwitchNav = createSwitchNavigator({
+//   login: Login,
+//   App: App
+// })
 
 export default App
