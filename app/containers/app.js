@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
-import {
-  StackNavigator,
-  TabNavigator,
-  createSwitchNavigator
-} from 'react-navigation'
+import { StackNavigator, TabNavigator, SwitchNavigator } from 'react-navigation'
 import MainContainer from './MainContainer'
 import CoverContainer from './CoverContainer'
 import AboutContainer from './AboutContainer'
@@ -11,6 +7,7 @@ import AirticalDetail from '../pages/MainPage/AirticalDetail'
 import CoverDetailContainer from './CoverDetailContainer'
 import LoginContainer from './LoginContainer'
 import RegisterContainer from './RegisterContainer'
+
 const TabContainer = TabNavigator(
   {
     Main: { screen: MainContainer },
@@ -37,44 +34,31 @@ const TabContainer = TabNavigator(
   }
 )
 
-const Login = StackNavigator({
-  login: {
+const LoginStack = StackNavigator({
+  loginScreen: {
     screen: LoginContainer,
+    navigationOptions: {
+      header: null
+    }
+  },
+  register: {
+    screen: RegisterContainer,
     navigationOptions: {
       header: null
     }
   }
 })
 
-const App = StackNavigator(
+const AppStack = StackNavigator(
   {
-    // login: {
-    //   screen: LoginContainer,
-    //   navigationOptions: {
-    //     header: null
-    //   }
-    // },
-    // Home: {
-    //   screen: LoginContainer,
-    //   navigationOptions: {
-    //     header: null
-    //   }
-    // },
-    tab: {
+    Tab: {
       screen: TabContainer,
       navigationOptions: {
         headerLeft: null
       }
     },
     Web: { screen: AirticalDetail },
-    slide: { screen: CoverDetailContainer },
-
-    register: {
-      screen: RegisterContainer,
-      navigationOptions: {
-        header: null
-      }
-    }
+    slide: { screen: CoverDetailContainer }
   },
   {
     headerMode: 'screen',
@@ -91,9 +75,12 @@ const App = StackNavigator(
   }
 )
 
-// const SwitchNav = createSwitchNavigator({
-//   login: Login,
-//   App: App
-// })
+const SwitchNav = SwitchNavigator(
+  {
+    Login: LoginStack,
+    App: AppStack
+  },
+  { initialRouteName: 'Login' }
+)
 
-export default App
+export default SwitchNav

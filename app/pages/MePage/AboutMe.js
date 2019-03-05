@@ -35,7 +35,7 @@ class AboutMe extends PureComponent {
                 .then(res => {
                   if (res.errorCode == 0) {
                     removeAllInfo('UserData')
-                    this.props.navigation.navigate('login')
+                    this.props.navigation.navigate('Login')
                   }
                 })
             }

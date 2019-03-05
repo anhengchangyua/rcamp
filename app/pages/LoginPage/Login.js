@@ -36,7 +36,7 @@ class Login extends React.Component {
     const data = loadAllInfo('UserData')
     console.log(data[0])
     if (data[0]) {
-      this.props.navigation.navigate('tab')
+      this.props.navigation.navigate('App')
     }
   }
 
@@ -67,7 +67,7 @@ class Login extends React.Component {
       } else {
         ToastUtil.showShort('登录成功')
         putUserInfo('UserData', res.data)
-        this.props.navigation.navigate('tab')
+        this.props.navigation.navigate('App')
         console.log(loadAllInfo('UserData'))
       }
     })
@@ -115,8 +115,8 @@ class Login extends React.Component {
             >
               <Text style={styles.text}>登录</Text>
             </TouchableOpacity>
-            <View style={{ flexDirection: 'row', height: 60 }}>
-              <View style={{ flex: 1, padding: 20 }}>
+            <View style={{ flexDirection: 'row', padding: 20, height: 60 }}>
+              <View style={{ flex: 1 }}>
                 <Text style={styles.text}>没有账号?</Text>
               </View>
               <TouchableOpacity
@@ -152,8 +152,6 @@ const styles = StyleSheet.create({
     zIndex: 100
   },
   register: {
-    flex: 1,
-    padding: 20,
     height: MARGIN,
     alignItems: 'flex-end'
   },
