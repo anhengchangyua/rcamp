@@ -7,6 +7,7 @@ import AirticalDetail from '../pages/MainPage/AirticalDetail'
 import CoverDetailContainer from './CoverDetailContainer'
 import LoginContainer from './LoginContainer'
 import RegisterContainer from './RegisterContainer'
+import CodePushPage from '../pages/CodePushPage'
 
 const TabContainer = TabNavigator(
   {
@@ -58,7 +59,8 @@ const AppStack = StackNavigator(
       }
     },
     Web: { screen: AirticalDetail },
-    slide: { screen: CoverDetailContainer }
+    slide: { screen: CoverDetailContainer },
+    codepush: { screen: CodePushPage }
   },
   {
     headerMode: 'screen',

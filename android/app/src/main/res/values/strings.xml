@@ -1,3 +1,4 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">pFBnGgn257FaiRKTLLFZdBnYr1QNa55f4579-b55b-4fc5-ae58-96776c0eda6d</string>
     <string name="app_name">rcamp</string>
 </resources>

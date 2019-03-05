@@ -5252,9 +5252,9 @@ react-lifecycles-compat@^1.0.2:
   version "1.1.4"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-1.1.4.tgz#fc005c72849b7ed364de20a0f64ff58ebdc2009a"
 
-react-native-code-push@^5.3.2:
-  version "5.4.2"
-  resolved "https://registry.npmjs.org/react-native-code-push/-/react-native-code-push-5.4.2.tgz#a43f976f983b9866005aac50fe7c1e915ab23943"
+react-native-code-push@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.npmjs.org/react-native-code-push/-/react-native-code-push-5.5.2.tgz#b394e8f92f8bc4d184d73ff8d066406def24c1e8"
   dependencies:
     code-push "2.0.6"
     glob "^5.0.15"

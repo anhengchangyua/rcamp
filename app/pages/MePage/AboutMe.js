@@ -42,6 +42,10 @@ class AboutMe extends PureComponent {
           }
         ])
         break
+      case 4:
+        const { navigate } = this.props.navigation
+        navigate('codepush')
+        break
 
       default:
         break
@@ -65,6 +69,12 @@ class AboutMe extends PureComponent {
         id: 3,
         title: '退出登录',
         icon: 'power-off',
+        color: '#999999'
+      },
+      {
+        id: 4,
+        title: '检查更新',
+        icon: 'update',
         color: '#999999'
       }
     ]
