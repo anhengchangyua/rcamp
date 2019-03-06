@@ -10,6 +10,8 @@ class AboutMe extends PureComponent {
   }
 
   _listPress = item => {
+    const { navigate } = this.props.navigation
+
     switch (item.id) {
       case 3:
         Alert.alert('确定退出 ?', '', [
@@ -36,10 +38,11 @@ class AboutMe extends PureComponent {
         ])
         break
       case 4:
-        const { navigate } = this.props.navigation
         navigate('codepush')
         break
-
+      case 1:
+        navigate('favorite')
+        break
       default:
         break
     }
