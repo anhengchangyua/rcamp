@@ -1,10 +1,3 @@
-/*
- * @Author: zhangwy 
- * @Date: 2018-10-08 11:03:10 
- * @Description:  关于我的page页面
- * @Last Modified by: zhangwy
- * @Last Modified time: 2018-11-30 15:52:10
- */
 import React, { PureComponent } from 'react'
 import { Tile, List, ListItem, Icon } from 'react-native-elements'
 import { View, Alert } from 'react-native'
